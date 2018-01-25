@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>ASJFAS</title>
+        <title>Home</title>
     </head>
     <body>
         ${vancea}
