@@ -8,7 +8,7 @@ public class Doctor implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id")
+    @Column(name = "doctor_id")
     private Integer id;
 
     @Column(name = "name")

@@ -35,9 +35,10 @@ public class RegisterController {
     public String createUser(@ModelAttribute(name = "userGenericDTO") UserGenericDTO userGenericDTO, BindingResult bindingResult,
                               Model model)
     {
+        model.addAttribute("userType", userGenericDTO.getRole() );
         System.out.println("User " + userGenericDTO.getName());
         if(userGenericDTO.getRole().equals(DOCTOR)){
-            //todo: save user as medic
+            userFacade.addDoctor(userGenericDTO);
         }
         else {
             userFacade.addUser(userGenericDTO);
