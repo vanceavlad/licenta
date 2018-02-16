@@ -11,8 +11,8 @@
 
 
 <div id="container">
-    <button id="login"><a href="/register/registerForm">Login</a></button>
-    <button id="register">Register</button>
+    <button id="register"><a href="${pageContext.request.contextPath}/register/registerForm">Register</a></button>
+    <button id="login"><a href="${pageContext.request.contextPath}/login/doLogin">Login</a></button>
 </div>
 
 </body>

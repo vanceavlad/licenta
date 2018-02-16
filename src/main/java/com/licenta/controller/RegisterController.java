@@ -36,6 +36,7 @@ public class RegisterController {
                               Model model)
     {
         model.addAttribute("userType", userGenericDTO.getRole() );
+        model.addAttribute("user", new UserGenericDTO());
         System.out.println("User " + userGenericDTO.getName());
         if(userGenericDTO.getRole().equals(DOCTOR)){
             userFacade.addDoctor(userGenericDTO);
