@@ -33,6 +33,9 @@ public class User implements Serializable {
     @Column(name = "type")
     private String type;
 
+    @Column(name = "uniqKeyGenerated")
+    private String uniqKeyGenerated;
+
 
     public User() {
     }
@@ -101,5 +104,13 @@ public class User implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getUniqKeyGenerated() {
+        return uniqKeyGenerated;
+    }
+
+    public void setUniqKeyGenerated(String uniqKeyGenerated) {
+        this.uniqKeyGenerated = uniqKeyGenerated;
     }
 }
