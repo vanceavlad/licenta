@@ -1,14 +1,10 @@
 package com.licenta.model;
 
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
-@Entity
-@Table(name = "user")
-public class User implements Serializable {
+@Entity(name = "doctor")
+public class Doctor implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,11 +27,11 @@ public class User implements Serializable {
     private Integer active;
 
 
-    public User() {
+    public Doctor() {
     }
 
 
-    public User(String name, String surname, String email, String password, Integer active) {
+    public Doctor(String name, String surname, String email, String password, Integer active) {
         this.name = name;
         this.lastName = surname;
         this.email = email;
@@ -92,3 +88,4 @@ public class User implements Serializable {
         this.active = active;
     }
 }
+
