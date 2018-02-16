@@ -26,6 +26,9 @@ public class Doctor implements Serializable {
     @Column(name = "active")
     private Integer active;
 
+    @Column(name = "type")
+    private String type;
+
 
     public Doctor() {
     }
@@ -86,6 +89,14 @@ public class Doctor implements Serializable {
 
     public void setActive(Integer active) {
         this.active = active;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
 

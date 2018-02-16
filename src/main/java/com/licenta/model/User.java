@@ -30,6 +30,9 @@ public class User implements Serializable {
     @Column(name = "active")
     private Integer active;
 
+    @Column(name = "type")
+    private String type;
+
 
     public User() {
     }
@@ -90,5 +93,13 @@ public class User implements Serializable {
 
     public void setActive(Integer active) {
         this.active = active;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
