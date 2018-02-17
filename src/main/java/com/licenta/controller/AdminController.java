@@ -76,9 +76,7 @@ public class AdminController {
     @RequestMapping(value = "/adminPage", method = RequestMethod.GET)
     public String adminProfile() {
 
-        return "adminPage";
+        return "redirect:/allergies";
     }
-
-
 
 }

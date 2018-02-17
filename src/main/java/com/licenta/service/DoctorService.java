@@ -25,4 +25,20 @@ public class DoctorService {
         doctor.setPassword(bCryptPasswordEncoder.encode(doctor.getPassword()));
         return doctorDao.create(doctor);
     }
+
+
+    public Doctor loginDoctor(String email, String password, String role) {
+        Doctor doctorFounded = doctorDao.getDoctorByEmail(email);
+        if (doctorFounded != null) {
+            if (bCryptPasswordEncoder.matches(password, doctorFounded.getPassword())) {
+
+                if (doctorFounded.getType().equals(role)) {
+                    return doctorFounded;
+                }
+
+            }
+        }
+        return null;
+
+    }
 }

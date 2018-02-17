@@ -31,4 +31,24 @@ public class UserService {
         return userDao.create(user);
     }
 
+    public User loginUser(String email, String password, String role) {
+        User userFounded = userDao.getUserByEmail(email);
+        if (userFounded != null) {
+            if (bCryptPasswordEncoder.matches(password, userFounded.getPassword())) {
+
+                if (userFounded.getType().equals(role)) {
+                    return userFounded;
+                }
+
+            }
+        }
+        return null;
+
+    }
+
+
+    public boolean notExistsEmail(String email) {
+        User userFromDb = userDao.getUserByEmail(email);
+        return userFromDb == null;
+    }
 }

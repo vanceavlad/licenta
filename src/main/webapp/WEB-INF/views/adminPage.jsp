@@ -5,12 +5,13 @@
     <title>Title</title>
 </head>
 <body>
-<c:url var="addAllergyUrl" value="/secret/admin/path/addAllergy"/>
+<c:url var="addAllergyUrl" value="/allergies"/>
 <div class="container">
 
     <div href="${addAllergyUrl}">
-        Add Allergy
+        <a href="${addAllergyUrl}"> Add Allergy</a>
     </div>
+
 
 </div>
 

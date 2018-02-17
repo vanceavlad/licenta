@@ -8,6 +8,7 @@ public class UserGenericDTO {
     private String password;
     private String email;
     private String role;
+    private String uniqKey;
 
     public String getName() {
         return name;
@@ -47,6 +48,14 @@ public class UserGenericDTO {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getUniqKey() {
+        return uniqKey;
+    }
+
+    public void setUniqKey(String uniqKey) {
+        this.uniqKey = uniqKey;
     }
 }
 

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import java.util.List;
 
 @Repository
@@ -50,5 +51,19 @@ public class UserDaoImpl implements AbstractDao<User, Integer> {
         session.delete(user);
 //        System.out.println("Session contains object: " + session.contains(user));
         return !session.contains(user);
+    }
+
+    public User getUserByEmail(String email) {
+        User soughtUser;
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "from User where email =:email";
+        Query query = session.createQuery(hql);
+        query.setParameter("email", email);
+        try {
+            soughtUser = (User) query.getSingleResult();
+        } catch (NoResultException nre) {
+            soughtUser = null;
+        }
+        return soughtUser;
     }
 }

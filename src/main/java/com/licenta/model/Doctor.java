@@ -3,7 +3,9 @@ package com.licenta.model;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity(name = "doctor")
+
+@Entity
+@Table(name = "doctor")
 public class Doctor implements Serializable {
 
     @Id

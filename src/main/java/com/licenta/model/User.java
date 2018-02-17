@@ -3,7 +3,9 @@ package com.licenta.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -36,6 +38,13 @@ public class User implements Serializable {
     @Column(name = "uniqKeyGenerated")
     private String uniqKeyGenerated;
 
+
+    @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    @JoinTable(name="UserAllergy", joinColumns = {
+            @JoinColumn(name="user_id", updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name="allergy_id",nullable = false, updatable =false)})
+
+    private List<Allergy> allergies = new ArrayList<>();
 
     public User() {
     }
@@ -112,5 +121,13 @@ public class User implements Serializable {
 
     public void setUniqKeyGenerated(String uniqKeyGenerated) {
         this.uniqKeyGenerated = uniqKeyGenerated;
+    }
+
+    public List<Allergy> getAllergies() {
+        return allergies;
+    }
+
+    public void setAllergies(List<Allergy> allergies) {
+        this.allergies = allergies;
     }
 }

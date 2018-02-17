@@ -12,7 +12,7 @@
 
 <div id="container">
     <button id="register"><a href="${pageContext.request.contextPath}/register/registerForm">Register</a></button>
-    <button id="login"><a href="${pageContext.request.contextPath}/login/doLogin">Login</a></button>
+    <button id="login"><a href="${pageContext.request.contextPath}/login/loginForm">Login</a></button>
 </div>
 
 </body>

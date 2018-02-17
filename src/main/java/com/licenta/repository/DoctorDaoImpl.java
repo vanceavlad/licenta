@@ -2,11 +2,13 @@ package com.licenta.repository;
 
 import com.licenta.model.Doctor;
 import com.licenta.repository.interfaces.AbstractDao;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import java.util.List;
 
 
@@ -47,5 +49,20 @@ public class DoctorDaoImpl implements AbstractDao<Doctor, Integer> {
         Doctor doctor = session.get(Doctor.class, entityId);
         session.delete(doctor);
         return !session.contains(doctor);
+    }
+
+
+    public Doctor getDoctorByEmail(String email) {
+        Doctor soughtDoctor;
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "from Doctor where email =:email";
+        Query query = session.createQuery(hql);
+        query.setParameter("email", email);
+        try {
+            soughtDoctor = (Doctor) query.getSingleResult();
+        } catch (NoResultException nre) {
+            soughtDoctor = null;
+        }
+        return soughtDoctor;
     }
 }
