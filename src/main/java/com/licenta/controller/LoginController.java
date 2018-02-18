@@ -4,6 +4,7 @@ package com.licenta.controller;
 import com.licenta.dto.UserGenericDTO;
 import com.licenta.facade.UserFacade;
 import com.licenta.model.User;
+import com.licenta.validator.DoctorValidator;
 import com.licenta.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,12 +21,17 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/login")
 public class LoginController {
 
+    public static final String DOCTOR = "DOCTOR";
+    public static final String USER = "USER";
 
     @Autowired
     UserFacade userFacade;
 
     @Autowired
     private UserValidator userValidator;
+
+    @Autowired
+    private DoctorValidator doctorValidator;
 
 
     @RequestMapping(value = "/loginForm", method = RequestMethod.GET)
@@ -43,10 +49,17 @@ public class LoginController {
     public String createUser(@ModelAttribute(name = "user") UserGenericDTO userGenericDTO, BindingResult bindingResult,
                              Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
-
-        userValidator.validate(userGenericDTO, bindingResult);
-        String page = "";
         String role = userGenericDTO.getRole();
+
+        if(role.equals(DOCTOR))
+        {
+            doctorValidator.validate(userGenericDTO, bindingResult);
+
+        }
+        else{
+            userValidator.validate(userGenericDTO, bindingResult);
+        }
+        String page = "";
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());
             model.addAttribute("user", new UserGenericDTO());

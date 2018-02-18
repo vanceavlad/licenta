@@ -1,6 +1,7 @@
 package com.licenta.repository;
 
 import com.licenta.model.Doctor;
+import com.licenta.model.User;
 import com.licenta.repository.interfaces.AbstractDao;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
+import javax.print.Doc;
 import java.util.List;
 
 
@@ -65,4 +67,6 @@ public class DoctorDaoImpl implements AbstractDao<Doctor, Integer> {
         }
         return soughtDoctor;
     }
+
+
 }

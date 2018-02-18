@@ -29,7 +29,7 @@
 </security:http>
 
     <!--<bean id="customAuthenticationProvider" class="com.licenta.config.security.CustomAuthenticationProvider"/>-->
-    
+
     <!--<security:authentication-manager>-->
         <!--<security:authentication-provider ref="customAuthenticationProvider">-->
         <!--</security:authentication-provider>-->

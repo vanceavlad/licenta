@@ -28,7 +28,7 @@
 
 <!-- Main Container -->
 <div class="container" style="background-color: #f1f2ed;">
-    <c:url var="loginUrl" value="//secret/admin/path/login/doLogin"/>
+    <c:url var="loginUrl" value="/login/doLogin"/>
     <form:form id="loginForm" action="${loginUrl}" method="post" modelAttribute="user">
 
         <!-- Warning messages from the server ... -->
@@ -68,31 +68,31 @@
             <label class="form-check-label">
                 <c:if test="${userType == 'DOCTOR'}">
                     You will login as ${userType}
-                    <form:radiobutton checked="checked" path="role" id="language" value="DOCTOR" name="radios"/>
+                    <form:radiobutton checked="checked" path="role" id="role" value="DOCTOR" name="radios"/>
 
 
                     You want to login as USER?
-                    <form:radiobutton path="role" id="language" value="USER" name="radios"/>
+                    <form:radiobutton path="role" id="role" value="USER" name="radios"/>
 
 
                 </c:if>
                 <br>
                 <c:if test="${userType == 'USER'}">
                     You will login as ${userType}
-                    <form:radiobutton path="role" checked="checked" id="language" value="USER" name="radios"/>
+                    <form:radiobutton path="role" checked="checked" id="role" value="USER" name="radios"/>
 
 
                     You want to login as DOCTOR?
-                    <form:radiobutton path="role" id="language" value="DOCTOR" name="radios"/>
+                    <form:radiobutton path="role" id="role" value="DOCTOR" name="radios"/>
 
                 </c:if>
                 <br>
                 <c:if test="${userType != 'USER' && userType != 'DOCTOR'}">
                     How you want to login?
                     As DOCTOR
-                    <form:radiobutton path="role" id="language" value="DOCTOR" name="radios"/>
+                    <form:radiobutton path="role" id="role" value="DOCTOR" name="radios"/>
                     OR as USER
-                    <form:radiobutton path="role" id="language" value="USER" name="radios"/>
+                    <form:radiobutton path="role" id="role" value="USER" name="radios"/>
 
                 </c:if>
             </label>

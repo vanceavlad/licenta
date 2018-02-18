@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 public class UserPopulator {
 
 
-
     private static final String DOCTOR = "DOCTOR";
     private static final String USER = "USER";
 
@@ -28,8 +27,7 @@ public class UserPopulator {
 //            userGenericDTO.setPassword(model.getPassword());
             userGenericDTO.setRole(USER);
             userGenericDTO.setUniqKey(model.getUniqKeyGenerated());
-
-
+            userGenericDTO.setAllergies(model.getAllergies());
         }
         return userGenericDTO;
 

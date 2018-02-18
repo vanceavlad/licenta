@@ -66,4 +66,19 @@ public class UserDaoImpl implements AbstractDao<User, Integer> {
         }
         return soughtUser;
     }
+
+    public User findByUniqueKey(String uniqKey) {
+        User foundedUser;
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "from User where uniqKeyGenerated =:uniqKeyGenerated";
+        Query query = session.createQuery(hql);
+        query.setParameter("uniqKeyGenerated", uniqKey);
+        try {
+            foundedUser = (User) query.getSingleResult();
+        } catch (NoResultException nre) {
+            foundedUser = null;
+        }
+        return foundedUser;
+
+    }
 }

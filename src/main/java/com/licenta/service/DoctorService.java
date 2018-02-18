@@ -41,4 +41,9 @@ public class DoctorService {
         return null;
 
     }
+
+    public boolean notExistsEmail(String email) {
+        Doctor doctorFromDB = doctorDao.getDoctorByEmail(email);
+        return doctorFromDB == null;
+    }
 }

@@ -11,6 +11,8 @@ import com.licenta.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class UserFacade {
 
@@ -70,5 +72,16 @@ public class UserFacade {
             page = "redirect:/user/myProfile";
         }
         return page;
+    }
+
+    public UserGenericDTO getUserByUniqueKey(String uniqKey) {
+        User user = userService.findUserByUniqueKey(uniqKey);
+        UserGenericDTO userGenericDTO = userPopulator.userFromServerToUserDTO(user);
+        return userGenericDTO;
+    }
+
+    public void addAllergiesForUser(UserGenericDTO user, List<String> allergyIds) {
+//        User userModel = userGenericReversePopulator.userDtoToModelInsertion(user);
+        userService.addAllergiesForUser(user.getEmail(), allergyIds);
     }
 }

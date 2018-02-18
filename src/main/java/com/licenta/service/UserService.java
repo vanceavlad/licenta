@@ -1,12 +1,17 @@
 package com.licenta.service;
 
 import com.licenta.Utils.RandomUUIDGenerator;
+import com.licenta.model.Allergy;
 import com.licenta.model.User;
+import com.licenta.repository.AllergyDaoImpl;
 import com.licenta.repository.UserDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -16,6 +21,9 @@ public class UserService {
 
     @Autowired
     private UserDaoImpl userDao;
+
+    @Autowired
+    private AllergyDaoImpl allergyDao;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -50,5 +58,34 @@ public class UserService {
     public boolean notExistsEmail(String email) {
         User userFromDb = userDao.getUserByEmail(email);
         return userFromDb == null;
+    }
+
+    public User findUserByUniqueKey(String uniqKey) {
+        return userDao.findByUniqueKey(uniqKey);
+    }
+
+    public void addAllergiesForUser(String email, List<String> allergyIds) {
+        List<Allergy> allergies = new ArrayList<>();
+
+        User userToChange = userDao.getUserByEmail(email);
+
+        if (allergyIds != null) {
+            for (String id : allergyIds) {
+                Allergy allergy = allergyDao.findById(Integer.parseInt(id));
+                if (!allergies.contains(allergy)) {
+                    allergies.add(allergy);
+                }
+            }
+        }
+//        else
+//        {
+//
+//
+//        }
+
+        userToChange.setAllergies(allergies);
+        userDao.update(userToChange);
+
+
     }
 }

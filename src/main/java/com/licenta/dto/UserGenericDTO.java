@@ -1,6 +1,11 @@
 package com.licenta.dto;
 
 
+import com.licenta.model.Allergy;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserGenericDTO {
 
     private String name;
@@ -9,6 +14,8 @@ public class UserGenericDTO {
     private String email;
     private String role;
     private String uniqKey;
+    private List<Allergy> allergies = new ArrayList<>();
+
 
     public String getName() {
         return name;
@@ -56,6 +63,14 @@ public class UserGenericDTO {
 
     public void setUniqKey(String uniqKey) {
         this.uniqKey = uniqKey;
+    }
+
+    public List<Allergy> getAllergies() {
+        return allergies;
+    }
+
+    public void setAllergies(List<Allergy> allergies) {
+        this.allergies = allergies;
     }
 }
 

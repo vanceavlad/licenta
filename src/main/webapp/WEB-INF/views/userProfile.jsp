@@ -26,13 +26,13 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <p class="text-center">Your unique ID is: <strong>${currentUser.uniqKey}</strong><p>
+            <h2 class="text-center">Your unique ID is: <strong>${currentUser.uniqKey}</strong><h2>
         </div>
     </div>
 
     <div class="row ">
         <div class="col-sm-4">
-            <button><a href="#">Adauga alergii</a></button>
+            <button  class="btn btn-danger" ><a href="/user/addAllergies">Adauga alergii</a></button>
         </div>
         <div class="col-sm-4">
             <button><a href="#">Adauga boli</a></button>
