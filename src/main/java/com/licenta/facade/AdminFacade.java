@@ -27,15 +27,15 @@ public class AdminFacade {
 
 
     public AdminDTO doLogin(AdminDTO adminDTO) {
-        AdminDTO adminForPage = new AdminDTO();
+        AdminDTO adminForPage;
 
         Admin adminFromServer = adminService.loginAdmin(adminDTO.getEmail(), adminDTO.getPassword());
-        adminForPage = adminPopulator.adminFromServerToAdminDTO(adminFromServer);
+        adminForPage = adminPopulator.adminFromModelToDTO(adminFromServer);
         return adminForPage;
     }
 
     public Integer createAdmin(AdminDTO adminDTO) {
-        Admin doctor = adminReversePopulator.adminDtoToModelInsertion(adminDTO);
+        Admin doctor = adminReversePopulator.adminDTOToModel(adminDTO);
         return adminService.create(doctor);
     }
 

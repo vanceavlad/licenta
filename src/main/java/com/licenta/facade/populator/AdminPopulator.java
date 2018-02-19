@@ -13,7 +13,7 @@ public class AdminPopulator {
     }
 
 
-    public AdminDTO adminFromServerToAdminDTO(Admin model) {
+    public AdminDTO adminFromModelToDTO(Admin model) {
 
         AdminDTO adminDTO = new AdminDTO();
         if (model != null) {

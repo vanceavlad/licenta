@@ -15,7 +15,7 @@ public class AdminReversePopulator {
 
     }
 
-    public Admin adminDtoToModelInsertion(AdminDTO model) {
+    public Admin adminDTOToModel(AdminDTO model) {
 
         Admin admin = new Admin();
         if (model != null) {

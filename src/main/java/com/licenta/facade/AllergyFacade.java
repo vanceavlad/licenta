@@ -27,23 +27,23 @@ public class AllergyFacade {
     public List<AllergyDTO> getAllAllergies() {
 
         List<Allergy> categories = allergyService.getAll();
-        return allergyPopulator.allergyModelToGenericDTOS(categories);
+        return allergyPopulator.allergyFromModelToDTOS(categories);
     }
 
     public void createAllergy(AllergyDTO allergyDTO) {
-        Allergy allergy =allergyReversePopulator.allergyDTOToAllergyModel(allergyDTO);
+        Allergy allergy =allergyReversePopulator.allergyDTOToModel(allergyDTO);
         allergyService.createAllergy(allergy);
     }
 
     public AllergyDTO findCategoryById(Integer id) {
         Allergy allergy = allergyService.findAllergyById(id);
-        return allergyPopulator.allergyModelToGenericDTO(allergy);
+        return allergyPopulator.allergyFromModelToDTO(allergy);
 
     }
 
     public void updateCategory(AllergyDTO oldAllergy, AllergyDTO newAllergy) {
-        Allergy oAllergy =  allergyReversePopulator.allergyDTOToAllergyModel(oldAllergy);
-        Allergy nAllergy =  allergyReversePopulator.allergyDTOToAllergyModel(newAllergy);
+        Allergy oAllergy =  allergyReversePopulator.allergyDTOToModel(oldAllergy);
+        Allergy nAllergy =  allergyReversePopulator.allergyDTOToModel(newAllergy);
         allergyService.updateAllergy(oAllergy,nAllergy);
     }
 }

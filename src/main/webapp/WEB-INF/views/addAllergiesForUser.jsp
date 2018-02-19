@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<c:if test="${! user.role == 'USER'}">
+<c:if test="${ user.role == 'USER'}">
 
 <!-- Main Container -->
 <div class="container" style="background-color: #f1f2ed;">

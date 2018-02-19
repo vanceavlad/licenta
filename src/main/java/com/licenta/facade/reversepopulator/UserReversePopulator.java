@@ -16,7 +16,7 @@ public class UserReversePopulator {
 
     }
 
-    public User userDtoToModelInsertion(UserGenericDTO model) {
+    public User userFromDTOToModel(UserGenericDTO model) {
 
         User user = new User();
         if (model != null && model.getRole().equals(USER)) {
@@ -32,7 +32,7 @@ public class UserReversePopulator {
 
     }
 
-    public Doctor doctorToModelIsertion(UserGenericDTO model) {
+    public Doctor doctorFromDTOToModel(UserGenericDTO model) {
         Doctor doctor = new Doctor();
         if (model != null && model.getRole().equals(DOCTOR)) {
 

@@ -11,7 +11,8 @@ import java.util.List;
 @Component
 public class AllergyPopulator {
 
-    public AllergyDTO allergyModelToGenericDTO(Allergy allergy){
+
+    public AllergyDTO allergyFromModelToDTO(Allergy allergy){
         AllergyDTO allergyDTO = new AllergyDTO();
         if(allergy!=null){
             allergyDTO.setName(allergy.getName());
@@ -21,11 +22,11 @@ public class AllergyPopulator {
     }
 
 
-    public List<AllergyDTO> allergyModelToGenericDTOS(List<Allergy> allergies){
+    public List<AllergyDTO> allergyFromModelToDTOS(List<Allergy> allergies){
         List<AllergyDTO> allergiesGenericDTO = new ArrayList<>();
         if(allergies!=null && (!allergies.isEmpty())){
             for (Allergy allergy: allergies) {
-                allergiesGenericDTO.add(allergyModelToGenericDTO(allergy));
+                allergiesGenericDTO.add(allergyFromModelToDTO(allergy));
             }
 
         }

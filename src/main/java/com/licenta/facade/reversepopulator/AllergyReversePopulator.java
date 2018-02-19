@@ -8,7 +8,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class AllergyReversePopulator {
 
-    public Allergy allergyDTOToAllergyModel(AllergyDTO allergyDTO){
+
+    public Allergy allergyDTOToModel(AllergyDTO allergyDTO){
         Allergy category = new Allergy();
         if(allergyDTO!=null){
             category.setName(allergyDTO.getName());

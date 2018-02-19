@@ -17,7 +17,9 @@ public class UserPopulator {
 
     }
 
-    public UserGenericDTO userFromServerToUserDTO(User model) {
+
+
+    public UserGenericDTO userFromModelToDTO(User model) {
 
         UserGenericDTO userGenericDTO = new UserGenericDTO();
         if (model != null && model.getType().equals(USER)) {
@@ -34,7 +36,7 @@ public class UserPopulator {
     }
 
 
-    public UserGenericDTO doctorFromServerToDoctorDTO(Doctor model) {
+    public UserGenericDTO doctorFromModelToDTO(Doctor model) {
         UserGenericDTO userGenericDTO = new UserGenericDTO();
         if (model != null && model.getType().equals(DOCTOR)) {
             userGenericDTO.setName(model.getName());

@@ -36,12 +36,12 @@ public class UserFacade {
 
 
     public Integer addUser(UserGenericDTO userGenericDTO) {
-        User user = userGenericReversePopulator.userDtoToModelInsertion(userGenericDTO);
+        User user = userGenericReversePopulator.userFromDTOToModel(userGenericDTO);
         return userService.create(user);
     }
 
     public Integer addDoctor(UserGenericDTO userGenericDTO) {
-        Doctor doctor = userGenericReversePopulator.doctorToModelIsertion(userGenericDTO);
+        Doctor doctor = userGenericReversePopulator.doctorFromDTOToModel(userGenericDTO);
         return doctorService.create(doctor);
     }
 
@@ -51,12 +51,12 @@ public class UserFacade {
 
             User userFromServer = userService.loginUser(userGenericDTO.getEmail(), userGenericDTO.getPassword(),
                     userGenericDTO.getRole());
-            userForListing = userPopulator.userFromServerToUserDTO(userFromServer);
+            userForListing = userPopulator.userFromModelToDTO(userFromServer);
         } else {
 
             Doctor doctorFromServer = doctorService.loginDoctor(userGenericDTO.getEmail(), userGenericDTO.getPassword(),
                     userGenericDTO.getRole());
-            userForListing = userPopulator.doctorFromServerToDoctorDTO(doctorFromServer);
+            userForListing = userPopulator.doctorFromModelToDTO(doctorFromServer);
         }
 
 
@@ -76,7 +76,7 @@ public class UserFacade {
 
     public UserGenericDTO getUserByUniqueKey(String uniqKey) {
         User user = userService.findUserByUniqueKey(uniqKey);
-        UserGenericDTO userGenericDTO = userPopulator.userFromServerToUserDTO(user);
+        UserGenericDTO userGenericDTO = userPopulator.userFromModelToDTO(user);
         return userGenericDTO;
     }
 
