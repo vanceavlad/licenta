@@ -40,6 +40,10 @@ public class UserController {
     @RequestMapping(value = "/addAllergies", method = RequestMethod.GET)
     public String viewPageForAllergies(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
+
+        if(!session.getAttributeNames().hasMoreElements()){
+            return "errorPage";
+        }
         UserGenericDTO userGenericDTO = (UserGenericDTO) session.getAttribute("currentUser");
         userGenericDTO = userFacade.getUserByUniqueKey(userGenericDTO.getUniqKey());
         List<Allergy> allergies = allergyService.getAll();

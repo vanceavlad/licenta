@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Vlad Vancea
-  Date: 2/16/2018
-  Time: 10:34 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -20,7 +14,8 @@
 
 </head>
 <body>
-
+<c:choose>
+    <c:when test="${currentUser.role == 'USER'}">
 
 <div class="container">
 
@@ -44,6 +39,11 @@
     </div>
 
 </div>
+    </c:when>
+    <c:otherwise>
+        <c:redirect url="/errors"/>
+    </c:otherwise>
+</c:choose>
 
 </body>
 </html>

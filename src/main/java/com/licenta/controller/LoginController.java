@@ -35,7 +35,7 @@ public class LoginController {
 
 
     @RequestMapping(value = "/loginForm", method = RequestMethod.GET)
-    public String getRegisterView(Model model, HttpServletRequest request) {
+    public String getLoginView(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession(true);
         if (session.getAttribute("user") == null) {
             model.addAttribute("user", new UserGenericDTO());
@@ -46,7 +46,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/doLogin", method = RequestMethod.POST)
-    public String createUser(@ModelAttribute(name = "user") UserGenericDTO userGenericDTO, BindingResult bindingResult,
+    public String login(@ModelAttribute(name = "user") UserGenericDTO userGenericDTO, BindingResult bindingResult,
                              Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         String role = userGenericDTO.getRole();
