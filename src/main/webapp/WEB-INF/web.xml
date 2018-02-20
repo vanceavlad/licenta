@@ -32,4 +32,10 @@
     </servlet-mapping>
 
 
+
+    <error-page>
+        <location>/errorsPage</location>
+    </error-page>
+
+
 </web-app>
