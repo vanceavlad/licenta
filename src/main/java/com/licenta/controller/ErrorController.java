@@ -37,7 +37,7 @@ public class ErrorController {
                 break;
             }
             case 404: {
-                errorMsg = "Http Error Code: 404. Resource not found." +'\n';
+                errorMsg = "Http Error Code: 404. Page not found." +'\n';
                 errorMsg += "Please check the URL to be correct";
                 break;
             }

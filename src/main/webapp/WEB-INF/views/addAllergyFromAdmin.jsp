@@ -5,12 +5,8 @@
 <head>
     <title>Add a new allergy</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-          crossorigin="anonymous">
+    <link rel="stylesheet" href="../../resources/bootstrap/css/bootstrap.css">
+
 </head>
 <body>
 <div style="text-align: center;">
@@ -37,5 +33,8 @@
     <!-- Simple div to let a little bit of space from the end of container -->
     <div style="height: 10px;"></div>
 </div>
+
+<script type="text/javascript" src="../../resources/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="../../resources/jQuery/jquery-3.3.1.js"></script>
 </body>
 </html>

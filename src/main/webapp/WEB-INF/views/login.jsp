@@ -9,12 +9,8 @@
     <title>Login</title>
 
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../../resources/bootstrap/css/bootstrap.css">
+
     <style>
         .form-group.required .control-label:after {
             content: "*";
@@ -88,11 +84,13 @@
                 </c:if>
                 <br>
                 <c:if test="${userType != 'USER' && userType != 'DOCTOR'}">
-                    How you want to login?
-                    As DOCTOR
+                    How you want to login?<br>
+                    <br>As <br>DOCTOR
                     <form:radiobutton path="role" id="role" value="DOCTOR" name="radios"/>
-                    OR as USER
+                    <br>
+                    OR as <br> USER
                     <form:radiobutton path="role" id="role" value="USER" name="radios"/>
+                    <br>
 
                 </c:if>
             </label>
@@ -116,6 +114,7 @@
     </div>
 </div>
 
-
+<script type="text/javascript" src="../../resources/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="../../resources/jQuery/jquery-3.3.1.js"></script>
 </body>
 </html>
