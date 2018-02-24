@@ -84,4 +84,10 @@ public class UserFacade {
 //        User userModel = userGenericReversePopulator.userDtoToModelInsertion(user);
         userService.addAllergiesForUser(user.getEmail(), allergyIds);
     }
+
+    public void connectDoctorWithUser(String email, UserGenericDTO userGenericDTO) {
+        User  user = userGenericReversePopulator.userFromDTOToModel(userGenericDTO);
+        userService.connectDoctorWithUser(email,user);
+
+    }
 }

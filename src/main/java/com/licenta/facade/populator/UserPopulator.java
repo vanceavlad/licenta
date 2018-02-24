@@ -43,6 +43,8 @@ public class UserPopulator {
             userGenericDTO.setEmail(model.getEmail());
             userGenericDTO.setLastName(model.getLastName());
 //            userGenericDTO.setPassword(model.getPassword());
+            userGenericDTO.setUsers(model.getUsers());
+            userGenericDTO.setDoctorRequests(model.getDoctorRequests());
             userGenericDTO.setRole(DOCTOR);
         }
         return userGenericDTO;

@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,6 +19,8 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
+    public static final String DOCTOR = "DOCTOR";
+    public static final String USER = "USER";
 
     @Autowired
     AllergyService allergyService;
@@ -72,7 +71,36 @@ public class UserController {
     }
 
 
+    @RequestMapping(value = "/confirm/{doctorEmail}")
+    public String acceptRequest (@PathVariable String doctorEmail, HttpServletRequest request){
+        if(request.getAttributeNames()==null){
+            return "redirect:/login/loginForm";
+        }
+
+        HttpSession session = request.getSession();
+        UserGenericDTO userGenericDTO = (UserGenericDTO) session.getAttribute("currentUser");
+
+        if(!session.getAttributeNames().hasMoreElements()){
+            return "redirect:/login/loginForm";
+
+        }
+
+        if(!userGenericDTO.getRole().equals(USER)){
+            return "redirect:/login/loginForm";
+        }
+        doctorEmail+=".com";
+        userFacade.connectDoctorWithUser(doctorEmail, userGenericDTO);
+        return "redirect:/user/myProfile";
+
+    }
 
 
 
-}
+
+
+
+
+
+
+
+    }

@@ -1,17 +1,21 @@
 package com.licenta.service;
 
-import com.licenta.Utils.RandomUUIDGenerator;
-import com.licenta.model.Allergy;
-import com.licenta.model.User;
-import com.licenta.repository.AllergyDaoImpl;
-import com.licenta.repository.UserDaoImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+        import com.licenta.Utils.RandomUUIDGenerator;
+        import com.licenta.model.Allergy;
+        import com.licenta.model.Doctor;
+        import com.licenta.model.DoctorRequest;
+        import com.licenta.model.User;
+        import com.licenta.repository.AllergyDaoImpl;
+        import com.licenta.repository.DoctorDaoImpl;
+        import com.licenta.repository.UserDaoImpl;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+        import org.springframework.stereotype.Service;
+        import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+        import java.util.ArrayList;
+        import java.util.List;
+        import java.util.Set;
 
 
 @Service
@@ -21,6 +25,9 @@ public class UserService {
 
     @Autowired
     private UserDaoImpl userDao;
+
+    @Autowired
+    private DoctorDaoImpl doctorDao;
 
     @Autowired
     private AllergyDaoImpl allergyDao;
@@ -87,5 +94,33 @@ public class UserService {
         userDao.update(userToChange);
 
 
+    }
+
+    public void connectDoctorWithUser(String email, User user) {
+
+        Doctor doctor = doctorDao.getDoctorByEmail(email);
+        user  = userDao.getUserByEmail(user.getEmail());
+        Set<User> users = doctor.getUsers();
+        if (!users.contains(user)) {
+            users.add(user);
+        }
+        doctor.setUsers(users);
+        doctorDao.update(doctor);
+        deleteRequestFromDoctor(doctor, user);
+
+    }
+
+
+    public void deleteRequestFromDoctor(Doctor doctor, User user) {
+        List<DoctorRequest> doctorRequestList = doctor.getDoctorRequests();
+        for (DoctorRequest dr : doctorRequestList) {
+            if (dr.getUser().equals(user.getEmail())) {
+                doctorRequestList.remove(dr);
+                break;
+            }
+        }
+        doctor.setDoctorRequests(doctorRequestList);
+
+        doctorDao.update(doctor);
     }
 }

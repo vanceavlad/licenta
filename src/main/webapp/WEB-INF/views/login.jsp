@@ -49,8 +49,8 @@
 
 
         <!-- Form for PASSWORD -->
-        <div class="form-group">
-            <label for="password" class="control-label"> Code </label>
+        <div class="form-group required">
+            <label for="password" class="control-label"> Password </label>
             <form:input path="password" type="password" class="form-control" id="password"
                         placeholder="Enter your password..."
                         data-fv-notempty="true"

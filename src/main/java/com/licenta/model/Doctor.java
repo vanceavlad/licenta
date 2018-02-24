@@ -2,6 +2,10 @@ package com.licenta.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -30,6 +34,17 @@ public class Doctor implements Serializable {
 
     @Column(name = "type")
     private String type;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.PERSIST}, mappedBy = "doctor")
+    private List<DoctorRequest> doctorRequests = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    @JoinTable(
+            name = "Doctor_User",
+            joinColumns = { @JoinColumn(name = "doctor_id") },
+            inverseJoinColumns = { @JoinColumn(name = "user_id") }
+    )
+    private Set<User> users = new HashSet<>();
 
 
     public Doctor() {
@@ -99,6 +114,22 @@ public class Doctor implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public List<DoctorRequest> getDoctorRequests() {
+        return doctorRequests;
+    }
+
+    public void setDoctorRequests(List<DoctorRequest> doctorRequests) {
+        this.doctorRequests = doctorRequests;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 }
 

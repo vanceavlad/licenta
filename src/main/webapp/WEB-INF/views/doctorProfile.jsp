@@ -76,6 +76,19 @@
         </div>
     </div>
 
+    <div class="row">
+
+
+        <h3>Your requests: </h3>
+
+        <c:forEach var="doctorRequest" items="${doctorRequests}">
+            <%--<input type="text" name="allergyIds"/>--%>
+            <c:out value="${doctorRequest.user}"/>
+            <br>
+        </c:forEach>
+        <br/>
+    </div>
+
 
 </div>
 

@@ -47,18 +47,19 @@ public class LoginController {
 
     @RequestMapping(value = "/doLogin", method = RequestMethod.POST)
     public String login(@ModelAttribute(name = "user") UserGenericDTO userGenericDTO, BindingResult bindingResult,
-                             Model model, HttpServletRequest request) {
+                        Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         String role = userGenericDTO.getRole();
-
-        if(role.equals(DOCTOR))
-        {
+        if (role == null) {
+            bindingResult.rejectValue("email", "email.taken", "Please select role!");
+        } else if (role.equals(DOCTOR)) {
             doctorValidator.validate(userGenericDTO, bindingResult);
 
-        }
-        else{
+        } else if (role.equals(USER)) {
             userValidator.validate(userGenericDTO, bindingResult);
         }
+
+        //todo: insert al 3lea if in care verific daca exista role daca nu il pun sa seteze
         String page = "";
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());

@@ -1,6 +1,7 @@
 package com.licenta.repository;
 
 import com.licenta.model.Doctor;
+import com.licenta.model.DoctorRequest;
 import com.licenta.model.User;
 import com.licenta.repository.interfaces.AbstractDao;
 import org.hibernate.Query;
@@ -66,6 +67,11 @@ public class DoctorDaoImpl implements AbstractDao<Doctor, Integer> {
             soughtDoctor = null;
         }
         return soughtDoctor;
+    }
+
+    public void saveOrUpdate(Doctor entity) {
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(entity);
     }
 
 

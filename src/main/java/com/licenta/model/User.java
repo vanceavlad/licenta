@@ -38,11 +38,14 @@ public class User implements Serializable {
     @Column(name = "uniqKeyGenerated")
     private String uniqKeyGenerated;
 
+    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST},fetch = FetchType.EAGER ,mappedBy = "users")
+    private Set<Doctor> doctors = new HashSet<>();
+
 
     @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     @JoinTable(name="UserAllergy", joinColumns = {
             @JoinColumn(name="user_id", updatable = false)},
-            inverseJoinColumns = {@JoinColumn(name="allergy_id",nullable = false, updatable =false)})
+        inverseJoinColumns = {@JoinColumn(name="allergy_id",nullable = false, updatable =false)})
 
     private List<Allergy> allergies = new ArrayList<>();
 
@@ -129,5 +132,13 @@ public class User implements Serializable {
 
     public void setAllergies(List<Allergy> allergies) {
         this.allergies = allergies;
+    }
+
+    public Set<Doctor> getDoctors() {
+        return doctors;
+    }
+
+    public void setDoctors(Set<Doctor> doctors) {
+        this.doctors = doctors;
     }
 }

@@ -2,9 +2,13 @@ package com.licenta.dto;
 
 
 import com.licenta.model.Allergy;
+import com.licenta.model.DoctorRequest;
+import com.licenta.model.User;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class UserGenericDTO {
 
@@ -15,6 +19,10 @@ public class UserGenericDTO {
     private String role;
     private String uniqKey;
     private List<Allergy> allergies = new ArrayList<>();
+    private Set<User> users = new HashSet<>();
+    private List<DoctorRequest> doctorRequests = new ArrayList<>();
+
+
 
 
     public String getName() {
@@ -71,6 +79,22 @@ public class UserGenericDTO {
 
     public void setAllergies(List<Allergy> allergies) {
         this.allergies = allergies;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    public List<DoctorRequest> getDoctorRequests() {
+        return doctorRequests;
+    }
+
+    public void setDoctorRequests(List<DoctorRequest> doctorRequests) {
+        this.doctorRequests = doctorRequests;
     }
 }
 
