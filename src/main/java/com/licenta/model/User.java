@@ -49,6 +49,9 @@ public class User implements Serializable {
 
     private List<Allergy> allergies = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.PERSIST}, mappedBy = "user")
+    private Set<FileForUser> filesForUser = new HashSet<>();
+
     public User() {
     }
 
@@ -140,5 +143,14 @@ public class User implements Serializable {
 
     public void setDoctors(Set<Doctor> doctors) {
         this.doctors = doctors;
+    }
+
+
+    public Set<FileForUser> getFilesForUser() {
+        return filesForUser;
+    }
+
+    public void setFilesForUser(Set<FileForUser> filesForUser) {
+        this.filesForUser = filesForUser;
     }
 }

@@ -40,7 +40,7 @@
                 <!-- Listing Email -->
                 <div class="form-group required">
                     <label for="email" class="control-label"> Email </label>
-                    <form:input type="text" path="email" class="form-control" id="email"
+                    <form:input type="text" path="email" class="form-control" id="email" name="email"
                                 data-fv-notempty="true"
                                 data-fv-notempty-message="An email is required for users!"
                                 required="true" readonly="true"/>
@@ -96,8 +96,8 @@
 
             <!-- Listing Email -->
             <div class="form-group required">
-                <label for="email" class="control-label"> Email </label> value="${resultUser.email}"
-                <input type="text" path="email" class="form-control" id="email"
+                <label for="email" class="control-label"> Email </label>
+                <input type="text" path="email" class="form-control" id="email" name="email" value="${resultUser.email}"
                        data-fv-notempty="true"
                        data-fv-notempty-message="An email is required for users!"
                        required="true" readonly="true"/>
@@ -123,13 +123,20 @@
             </c:forEach>
             <br/>
 
-            <%--<c:url var="addFileForUser" value="/files/addFile"/>--%>
-            <%--<form:form id="editForm" modelAttribute="user" action="${addUrl}" method="post">--%>
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary" style="text-align:center">
-                   Add New File
-                </button>
-            </div>
+            <c:url var="addFileForUser" value="/files/addFileForUser"/>
+            <form:form id="addFileForUserForm" action="${addFileForUser}" method="post">
+                <input type="text" class="form-control text-hide" id="email" name="email" value="${resultUser.email}"
+                       data-fv-notempty="true"
+                       data-fv-notempty-message="An email is required for users!"
+                       required="true" readonly="true"/>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary" style="text-align:center">
+                        Add New File
+                    </button>
+                </div>
+            </form:form>
+
         </c:otherwise>
     </c:choose>
     <!-- Simple div to let a little bit of space from the end of container -->

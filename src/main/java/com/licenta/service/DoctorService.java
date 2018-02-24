@@ -103,7 +103,7 @@ public class DoctorService {
         Set<User> users = doctorModel.getUsers();
 
         for(User user : users){
-            if(user.equals(userModel)){
+            if(user.getEmail().equals(userModel.getEmail())){
                 return true;
             }
         }

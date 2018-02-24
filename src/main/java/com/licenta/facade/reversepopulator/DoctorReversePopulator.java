@@ -19,6 +19,8 @@ public class DoctorReversePopulator {
             doctor.setEmail(model.getEmail());
             doctor.setLastName(model.getLastName());
             doctor.setPassword(model.getPassword());
+            doctor.setUsers(model.getUsers());
+            doctor.setDoctorRequests(model.getDoctorRequests());
             doctor.setType(DOCTOR);
         }
         return doctor;
