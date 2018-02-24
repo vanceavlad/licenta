@@ -24,8 +24,8 @@
 
 <!-- Main Container -->
 <div class="container" style="background-color: #f1f2ed;">
-    <c:url var="loginUrl" value="/login/doLogin"/>
-    <form:form id="loginForm" action="${loginUrl}" method="post" modelAttribute="user">
+    <c:url var="loginUrl" value="/login/doLoginForDoctor"/>
+    <form:form id="loginFormDoctor" action="${loginUrl}" method="post" modelAttribute="doctor">
 
         <!-- Warning messages from the server ... -->
         <c:forEach items="${errors}" var="error">
@@ -78,18 +78,16 @@
                     <form:radiobutton path="role" checked="checked" id="role" value="USER" name="radios"/>
 
 
-                    <%--You want to login as DOCTOR?--%>
-                    <%--<form:radiobutton path="role" id="role" value="DOCTOR" name="radios"/>--%>
+                    You want to login as DOCTOR?
+                    <form:radiobutton path="role" id="role" value="DOCTOR" name="radios"/>
 
                 </c:if>
                 <br>
                 <c:if test="${userType != 'USER' && userType != 'DOCTOR'}">
-                    How you want to login?
+                    How you want to login?<br>
+                    <br>As <br>DOCTOR
+                    <form:radiobutton path="role" id="role" value="DOCTOR" name="radios"/>
                     <br>
-                    As <br> USER
-                    <form:radiobutton path="role" id="role" value="USER" name="radios"/>
-                    <br>
-
                 </c:if>
             </label>
         </div>
@@ -108,7 +106,7 @@
     height: 10px;"></div>
 
     <div class="text-center">
-        <button class="btn btn-danger" ><a href="${pageContext.request.contextPath}/register/registerForm">Register</a></button>
+        <button class="btn btn-danger" ><a href="${pageContext.request.contextPath}/register/registerFormDoctor">Register as doctor</a></button>
     </div>
 </div>
 

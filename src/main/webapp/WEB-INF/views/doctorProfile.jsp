@@ -12,90 +12,104 @@
 <body>
 
 <c:choose>
-    <c:when test="${currentUser.role == 'DOCTOR'}">
-<c:url var="searchUserURL" value="/doctor/searchUser"/>
+    <c:when test="${currentDoctor.role == 'DOCTOR'}">
+        <c:url var="searchUserURL" value="/doctor/searchUser"/>
 
-<div class="container">
-
-
-    <div class="row">
-        <div class="col-sm-3">
-            <button class="btn btn-danger"><a href="#">My patient</a></button>
-        </div>
-        <div class="col-sm-3">
-            <button><a href="#">Vezi programari</a></button>
-        </div>
-        <div class="col-sm-3">
-            <button><a href="#">Adauga programare</a></button>
-        </div>
-
-        <div class="col-sm-3">
-            <button><a href="#">Edit Profile</a></button>
-        </div>
-
-    </div>
+        <div class="container">
 
 
-    <div class="row">
-
-        <div class="col-sm-3 mt-2">
-            <h2>Search for an user:</h2>
-        </div>
-
-        <div class="col-sm-3 mt-4">
-            <!-- Warning messages from the server ... -->
-            <c:forEach items="${errors}" var="error">
-
-                <div class="alert alert-warning">
-                        <%-- do want you want with ${error} --%>
-                    <strong>Warning! </strong><c:out value="${error.defaultMessage}"/>
-
+            <div class="row">
+                <div class="col-sm-3">
+                    <button class="btn btn-danger"><a href="#">My patient</a></button>
                 </div>
-            </c:forEach>
-
-
-            <form:form id="loginForm" action="${searchUserURL}" method="post" modelAttribute="searchedUser">
-                <!-- Form for Unique key -->
-                <div class="form-group required">
-                    <label for="uniqKey" class="control-label"> Email </label>
-                    <form:input type="text" path="uniqKey" class="form-control" id="uniqKey"
-                                placeholder="Enter his key..."
-                                data-fv-notempty="true"
-                                data-fv-notempty-message="An email is required for login!"
-                                required="true"/>
+                <div class="col-sm-3">
+                    <button><a href="#">Vezi programari</a></button>
+                </div>
+                <div class="col-sm-3">
+                    <button><a href="#">Adauga programare</a></button>
                 </div>
 
-                <!-- Button for SUBMIT -->
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary" style="text-align:center">
-                        Search User
-                    </button>
+                <div class="col-sm-3">
+                    <button><a href="#">Edit Profile</a></button>
                 </div>
-            </form:form>
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-sm-3 mt-2">
+                    <h2>Search for an user:</h2>
+                </div>
+
+                <div class="col-sm-3 mt-4">
+                    <!-- Warning messages from the server ... -->
+                    <c:forEach items="${errors}" var="error">
+
+                        <div class="alert alert-warning">
+                                <%-- do want you want with ${error} --%>
+                            <strong>Warning! </strong><c:out value="${error.defaultMessage}"/>
+
+                        </div>
+                    </c:forEach>
+
+
+                    <form:form id="loginForm" action="${searchUserURL}" method="post" modelAttribute="searchedUser">
+                        <!-- Form for Unique key -->
+                        <div class="form-group required">
+                            <label for="uniqKey" class="control-label"> Email </label>
+                            <form:input type="text" path="uniqKey" class="form-control" id="uniqKey"
+                                        placeholder="Enter his key..."
+                                        data-fv-notempty="true"
+                                        data-fv-notempty-message="An email is required for login!"
+                                        required="true"/>
+                        </div>
+
+                        <!-- Button for SUBMIT -->
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary" style="text-align:center">
+                                Search User
+                            </button>
+                        </div>
+                    </form:form>
+
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-6 mt-4">
+                    <h3>Your requests: </h3><br>
+
+                    <c:forEach var="doctorRequest" items="${doctorRequests}">
+                        <%--<input type="text" name="allergyIds"/>--%>
+                        <c:out value="${doctorRequest.user}"/>
+                        <br>
+                    </c:forEach>
+                    <br/>
+                </div>
+
+                <div class="col-sm-6 mt-4">
+                    <h3>Your requests users: </h3><br>
+                    <c:forEach var="user" items="${currentDoctor.users}">
+                        <%--<input type="text" name="allergyIds"/>--%>
+                        <p>Name:<c:out value="${user.name}"/> </p>
+                        <p>Last name: <c:out value="${user.lastName}"/></p>
+                        <p>email: <c:out value="${user.email}"/></p>
+                        <br>
+                    </c:forEach>
+
+
+                </div>
+            </div>
+
 
         </div>
-    </div>
 
-    <div class="row">
-
-
-        <h3>Your requests: </h3>
-
-        <c:forEach var="doctorRequest" items="${doctorRequests}">
-            <%--<input type="text" name="allergyIds"/>--%>
-            <c:out value="${doctorRequest.user}"/>
-            <br>
-        </c:forEach>
-        <br/>
-    </div>
-
-
-</div>
-
-</c:when>
-<c:otherwise>
-    <c:redirect url="/errors"/>
-</c:otherwise>
+    </c:when>
+    <c:otherwise>
+        <c:redirect url="/errors"/>
+    </c:otherwise>
 </c:choose>
 
 

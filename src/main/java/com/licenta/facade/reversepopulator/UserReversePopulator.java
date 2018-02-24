@@ -1,6 +1,7 @@
 package com.licenta.facade.reversepopulator;
 
 
+import com.licenta.dto.UserDTO;
 import com.licenta.dto.UserGenericDTO;
 import com.licenta.model.Doctor;
 import com.licenta.model.User;
@@ -16,7 +17,7 @@ public class UserReversePopulator {
 
     }
 
-    public User userFromDTOToModel(UserGenericDTO model) {
+    public User userFromDTOToModel(UserDTO model) {
 
         User user = new User();
         if (model != null && model.getRole().equals(USER)) {
@@ -32,16 +33,4 @@ public class UserReversePopulator {
 
     }
 
-    public Doctor doctorFromDTOToModel(UserGenericDTO model) {
-        Doctor doctor = new Doctor();
-        if (model != null && model.getRole().equals(DOCTOR)) {
-
-            doctor.setName(model.getName());
-            doctor.setEmail(model.getEmail());
-            doctor.setLastName(model.getLastName());
-            doctor.setPassword(model.getPassword());
-            doctor.setType(DOCTOR);
-        }
-        return doctor;
-    }
 }

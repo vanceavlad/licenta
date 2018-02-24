@@ -13,8 +13,11 @@
 
 
 <div id="container">
-    <button id="register"><a href="${pageContext.request.contextPath}/register/registerForm">Register</a></button>
-    <button id="login"><a href="${pageContext.request.contextPath}/login/loginForm">Login</a></button>
+    <button id="login-doctor"><a href="${pageContext.request.contextPath}/login/loginFormDoctor">Login as Doctor</a></button>
+    <button id="register-doctor"><a href="${pageContext.request.contextPath}/register/registerFormDoctor">Register as Doctor</a></button>
+    <button id="login"><a href="${pageContext.request.contextPath}/login/loginForm">Login as User</a></button>
+    <button id="register"><a href="${pageContext.request.contextPath}/register/registerForm">Register as User</a></button>
+
 </div>
 
 <script type="text/javascript" src="../../resources/bootstrap/js/bootstrap.js"></script>

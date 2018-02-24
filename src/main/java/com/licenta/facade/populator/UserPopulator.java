@@ -1,6 +1,7 @@
 package com.licenta.facade.populator;
 
 
+import com.licenta.dto.UserDTO;
 import com.licenta.dto.UserGenericDTO;
 import com.licenta.model.Doctor;
 import com.licenta.model.User;
@@ -19,9 +20,9 @@ public class UserPopulator {
 
 
 
-    public UserGenericDTO userFromModelToDTO(User model) {
+    public UserDTO userFromModelToDTO(User model) {
 
-        UserGenericDTO userGenericDTO = new UserGenericDTO();
+        UserDTO userGenericDTO = new UserDTO();
         if (model != null && model.getType().equals(USER)) {
             userGenericDTO.setName(model.getName());
             userGenericDTO.setEmail(model.getEmail());
@@ -36,17 +37,4 @@ public class UserPopulator {
     }
 
 
-    public UserGenericDTO doctorFromModelToDTO(Doctor model) {
-        UserGenericDTO userGenericDTO = new UserGenericDTO();
-        if (model != null && model.getType().equals(DOCTOR)) {
-            userGenericDTO.setName(model.getName());
-            userGenericDTO.setEmail(model.getEmail());
-            userGenericDTO.setLastName(model.getLastName());
-//            userGenericDTO.setPassword(model.getPassword());
-            userGenericDTO.setUsers(model.getUsers());
-            userGenericDTO.setDoctorRequests(model.getDoctorRequests());
-            userGenericDTO.setRole(DOCTOR);
-        }
-        return userGenericDTO;
-    }
 }

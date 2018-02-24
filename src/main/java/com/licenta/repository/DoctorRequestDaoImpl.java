@@ -44,6 +44,11 @@ public class DoctorRequestDaoImpl implements AbstractDao<DoctorRequest, Integer>
 
     @Override
     public boolean delete(Integer entityId) {
-        return false;
+
+        Session session = sessionFactory.getCurrentSession();
+        DoctorRequest doctorRequest = session.get(DoctorRequest.class, entityId);
+        session.delete(doctorRequest);
+//        System.out.println("Session contains object: " + session.contains(user));
+        return !session.contains(doctorRequest);
     }
 }

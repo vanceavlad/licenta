@@ -1,6 +1,8 @@
 package com.licenta.controller;
 
 
+import com.licenta.dto.DoctorDTO;
+import com.licenta.dto.UserDTO;
 import com.licenta.dto.UserGenericDTO;
 import com.licenta.facade.DoctorFacade;
 import com.licenta.facade.UserFacade;
@@ -29,25 +31,25 @@ public class DoctorController {
     @RequestMapping(value = "/myProfile", method = RequestMethod.GET)
     public String myProfile(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        UserGenericDTO userGenericDTO = (UserGenericDTO) session.getAttribute("currentUser");
-        model.addAttribute("doctorRequests", userGenericDTO.getDoctorRequests());
-        model.addAttribute("currentUser", userGenericDTO);
-        model.addAttribute("searchedUser", new UserGenericDTO());
+        DoctorDTO doctorGenericDTO = (DoctorDTO) session.getAttribute("currentDoctor");
+        model.addAttribute("doctorRequests", doctorGenericDTO.getDoctorRequests());
+        model.addAttribute("currentDoctor", doctorGenericDTO);
+        model.addAttribute("searchedUser", new UserDTO());
         return "doctorProfile";
     }
 
 
     @RequestMapping(value = "/searchUser", method = RequestMethod.POST)
-    public String search(@ModelAttribute("searchedUser") UserGenericDTO searchedUser, Model model,
+    public String search(@ModelAttribute("searchedUser") UserDTO searchedUser, Model model,
                          BindingResult bindingResult, HttpServletRequest request) {
 
         HttpSession session = request.getSession();
 
-        UserGenericDTO doctor = (UserGenericDTO) session.getAttribute("currentUser");
+        DoctorDTO doctor = (DoctorDTO) session.getAttribute("currentDoctor");
 
 
         String goToPage = "";
-        UserGenericDTO userForListing = userFacade.getUserByUniqueKey(searchedUser.getUniqKey());
+        UserDTO userForListing = userFacade.getUserByUniqueKey(searchedUser.getUniqKey());
 
         boolean hasUser = doctorFacade.verifyIfDoctorHasUser(doctor, userForListing);
 
@@ -60,7 +62,7 @@ public class DoctorController {
 //            return "searchedUserDetails";
             goToPage = "searchedUserDetails";
         } else {
-            bindingResult.rejectValue("uniqueKey", "uniqueKey.empty", "User with unique id enteredis not exists!");
+            bindingResult.rejectValue("uniqueKey", "uniqueKey.empty", "User with unique id entered is not exists!");
             goToPage = "doctorProfile";
         }
         return goToPage;
@@ -68,15 +70,15 @@ public class DoctorController {
 
 
     @RequestMapping(value = "/addDoctorToUser", method = RequestMethod.POST)
-    public String addDoctorToUser(@ModelAttribute(name = "resultUser") UserGenericDTO userGeneric,
+    public String addDoctorToUser(@ModelAttribute(name = "resultUser") UserDTO userGeneric,
                                   BindingResult bindingResult, Model model, HttpServletRequest request) {
         String goToPage;
         HttpSession session = request.getSession();
 
-        UserGenericDTO doctorDTO = (UserGenericDTO) session.getAttribute("currentUser");
+        DoctorDTO doctorDTO = (DoctorDTO) session.getAttribute("currentDoctor");
 
         doctorDTO.setDoctorRequests(doctorFacade.connectUserWithDoctor(doctorDTO, userGeneric));
-        model.addAttribute("currentUser", doctorDTO);
+        model.addAttribute("currentDoctor", doctorDTO);
         return "redirect:/doctor/myProfile";
     }
 }

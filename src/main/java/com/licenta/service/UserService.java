@@ -1,21 +1,22 @@
 package com.licenta.service;
 
-        import com.licenta.Utils.RandomUUIDGenerator;
-        import com.licenta.model.Allergy;
-        import com.licenta.model.Doctor;
-        import com.licenta.model.DoctorRequest;
-        import com.licenta.model.User;
-        import com.licenta.repository.AllergyDaoImpl;
-        import com.licenta.repository.DoctorDaoImpl;
-        import com.licenta.repository.UserDaoImpl;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-        import org.springframework.stereotype.Service;
-        import org.springframework.transaction.annotation.Transactional;
+import com.licenta.Utils.RandomUUIDGenerator;
+import com.licenta.model.Allergy;
+import com.licenta.model.Doctor;
+import com.licenta.model.DoctorRequest;
+import com.licenta.model.User;
+import com.licenta.repository.AllergyDaoImpl;
+import com.licenta.repository.DoctorDaoImpl;
+import com.licenta.repository.DoctorRequestDaoImpl;
+import com.licenta.repository.UserDaoImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-        import java.util.ArrayList;
-        import java.util.List;
-        import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -31,6 +32,9 @@ public class UserService {
 
     @Autowired
     private AllergyDaoImpl allergyDao;
+
+    @Autowired
+    private DoctorRequestDaoImpl doctorRequestDao;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -99,7 +103,7 @@ public class UserService {
     public void connectDoctorWithUser(String email, User user) {
 
         Doctor doctor = doctorDao.getDoctorByEmail(email);
-        user  = userDao.getUserByEmail(user.getEmail());
+        user = userDao.getUserByEmail(user.getEmail());
         Set<User> users = doctor.getUsers();
         if (!users.contains(user)) {
             users.add(user);
@@ -112,11 +116,15 @@ public class UserService {
 
 
     public void deleteRequestFromDoctor(Doctor doctor, User user) {
-        List<DoctorRequest> doctorRequestList = doctor.getDoctorRequests();
+        List<DoctorRequest> doctorRequestList = new ArrayList<>();
+        doctorRequestList = doctor.getDoctorRequests();
         for (DoctorRequest dr : doctorRequestList) {
             if (dr.getUser().equals(user.getEmail())) {
+                doctorRequestDao.delete(dr.getId());
                 doctorRequestList.remove(dr);
-                break;
+                if (doctorRequestList.size() == 0) {
+                    break;
+                }
             }
         }
         doctor.setDoctorRequests(doctorRequestList);

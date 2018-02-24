@@ -1,6 +1,7 @@
 package com.licenta.controller;
 
 
+import com.licenta.dto.UserDTO;
 import com.licenta.dto.UserGenericDTO;
 import com.licenta.facade.UserFacade;
 import com.licenta.model.Allergy;
@@ -31,7 +32,7 @@ public class UserController {
     @RequestMapping(value = "/myProfile", method = RequestMethod.GET)
     public String myProfile(Model model, HttpServletRequest request){
         HttpSession session = request.getSession();
-        UserGenericDTO userGenericDTO = (UserGenericDTO) session.getAttribute("currentUser");
+        UserDTO userGenericDTO = (UserDTO) session.getAttribute("currentUser");
         model.addAttribute("currentUser", userGenericDTO);
         return "userProfile";
     }
@@ -43,7 +44,7 @@ public class UserController {
         if(!session.getAttributeNames().hasMoreElements()){
             return "errorPage";
         }
-        UserGenericDTO userGenericDTO = (UserGenericDTO) session.getAttribute("currentUser");
+        UserDTO userGenericDTO = (UserDTO) session.getAttribute("currentUser");
         userGenericDTO = userFacade.getUserByUniqueKey(userGenericDTO.getUniqKey());
         List<Allergy> allergies = allergyService.getAll();
         model.addAttribute("existedAllergies", userGenericDTO.getAllergies());
@@ -55,14 +56,17 @@ public class UserController {
     }
 
     @RequestMapping(value = "/addAllergies", method = RequestMethod.POST)
-    public String updateProduct(@ModelAttribute() UserGenericDTO user,
+    public String updateProduct(@ModelAttribute() UserDTO user,
                                 @RequestParam(value = "allergyIds", required = false) List<String> allergyIds,
-                                BindingResult bindingResult, Model model) {
+                                BindingResult bindingResult, Model model, HttpServletRequest request) {
 
+        HttpSession session = request.getSession();
 
         String goToPage = "redirect:/user/myProfile";
 //        if(allergyIds != null) {
             userFacade.addAllergiesForUser(user, allergyIds);
+//        session.setAttribute("currentUser", user);
+//        model.addAttribute("currentUser", user);
 //            goToPage="redirect:/user/myProfile";
 //        }
 
@@ -78,14 +82,19 @@ public class UserController {
         }
 
         HttpSession session = request.getSession();
-        UserGenericDTO userGenericDTO = (UserGenericDTO) session.getAttribute("currentUser");
+        UserDTO userGenericDTO = (UserDTO) session.getAttribute("currentUser");
+
+        if(userGenericDTO==null){
+            return "redirect:/login/loginForm";
+        }
+
 
         if(!session.getAttributeNames().hasMoreElements()){
             return "redirect:/login/loginForm";
 
         }
 
-        if(!userGenericDTO.getRole().equals(USER)){
+        if(!USER.equals(userGenericDTO.getRole())){
             return "redirect:/login/loginForm";
         }
         doctorEmail+=".com";

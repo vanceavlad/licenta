@@ -1,7 +1,10 @@
 package com.licenta.controller;
 
 
+import com.licenta.dto.DoctorDTO;
+import com.licenta.dto.UserDTO;
 import com.licenta.dto.UserGenericDTO;
+import com.licenta.facade.DoctorFacade;
 import com.licenta.facade.UserFacade;
 import com.licenta.model.User;
 import com.licenta.validator.DoctorValidator;
@@ -28,6 +31,9 @@ public class LoginController {
     UserFacade userFacade;
 
     @Autowired
+    DoctorFacade doctorFacade;
+
+    @Autowired
     private UserValidator userValidator;
 
     @Autowired
@@ -38,7 +44,7 @@ public class LoginController {
     public String getLoginView(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession(true);
         if (session.getAttribute("user") == null) {
-            model.addAttribute("user", new UserGenericDTO());
+            model.addAttribute("user", new UserDTO());
             return "login";
         } else {
             return "homepage";
@@ -46,7 +52,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/doLogin", method = RequestMethod.POST)
-    public String login(@ModelAttribute(name = "user") UserGenericDTO userGenericDTO, BindingResult bindingResult,
+    public String login(@ModelAttribute(name = "user") UserDTO userGenericDTO, BindingResult bindingResult,
                         Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         String role = userGenericDTO.getRole();
@@ -63,22 +69,72 @@ public class LoginController {
         String page = "";
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());
-            model.addAttribute("user", new UserGenericDTO());
+            model.addAttribute("user", new UserDTO());
             model.addAttribute("userType", userGenericDTO.getRole());
             return "login";
         }
-        UserGenericDTO userForListing = userFacade.doLogin(userGenericDTO);
-        if (userForListing.getEmail().equals(null)) {
-            model.addAttribute("errors", "User or password incorrect/ or desired type of login are not allowed");
-            page = "login";
-        } else {
+
+        if (USER.equals(role)) {
+            UserDTO userForListing = userFacade.doLogin(userGenericDTO);
             session.setAttribute("currentUser", userForListing);
             model.addAttribute("currentUser", userForListing);
             page = userFacade.getPageForType(role);
         }
 
+
+//        UserDTO userForListing = userFacade.doLogin(userGenericDTO);
+//        if (userForListing.getEmail().equals(null)) {
+//            model.addAttribute("errors", "User or password incorrect/ or desired type of login are not allowed");
+//            page = "login";
+//        } else {
+//            session.setAttribute("currentUser", userForListing);
+//            model.addAttribute("currentUser", userForListing);
+//            page = userFacade.getPageForType(role);
+//        }
+
         return page;
     }
 
+
+    @RequestMapping(value = "/loginFormDoctor", method = RequestMethod.GET)
+    public String getLoginViewForDoctor(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(true);
+        if (session.getAttribute("doctor") == null) {
+            model.addAttribute("doctor", new DoctorDTO());
+            return "loginDoctor";
+        } else {
+            return "homepage";
+        }
+    }
+
+
+    @RequestMapping(value = "/doLoginForDoctor", method = RequestMethod.POST)
+    public String login(@ModelAttribute(name = "doctor") DoctorDTO doctorDTO, BindingResult bindingResult,
+                        Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String role = doctorDTO.getRole();
+        if (role == null) {
+            bindingResult.rejectValue("email", "email.taken", "Please select role!");
+        } else if (role.equals(DOCTOR)) {
+            doctorValidator.validate(doctorDTO, bindingResult);
+        }
+        //todo: insert al 3lea if in care verific daca exista role daca nu il pun sa seteze
+        String page = "";
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("errors", bindingResult.getAllErrors());
+            model.addAttribute("doctor", new DoctorDTO());
+            model.addAttribute("userType", doctorDTO.getRole());
+            return "loginDoctor";
+        }
+
+        if (DOCTOR.equals(role)) {
+            DoctorDTO doctorForListing = doctorFacade.doLogin(doctorDTO);
+            session.setAttribute("currentDoctor", doctorForListing);
+            model.addAttribute("currentDoctor", doctorForListing);
+            page = userFacade.getPageForType(role);
+        }
+
+        return page;
+    }
 
 }

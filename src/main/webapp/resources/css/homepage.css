@@ -6,6 +6,15 @@
     width: 300px;
     height: 40px;
 }
+
+#login-doctor{
+    width: 300px;
+    height: 40px;
+}
+#register-doctor{
+    width: 300px;
+    height: 40px;
+}
 #container{
     text-align: center;
 }

@@ -1,5 +1,6 @@
 package com.licenta.validator;
 
+import com.licenta.dto.DoctorDTO;
 import com.licenta.dto.UserGenericDTO;
 import com.licenta.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class DoctorValidator implements Validator {
 
     @Override
     public void validate(Object objectDoctor, Errors errors) {
-        UserGenericDTO user = (UserGenericDTO) objectDoctor;
+        DoctorDTO user = (DoctorDTO) objectDoctor;
 
         ValidationUtils.rejectIfEmpty(errors,"email", "email.empty", "Email cannot be empty");
 

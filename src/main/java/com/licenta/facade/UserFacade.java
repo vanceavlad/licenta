@@ -1,6 +1,8 @@
 package com.licenta.facade;
 
 
+import com.licenta.dto.DoctorDTO;
+import com.licenta.dto.UserDTO;
 import com.licenta.dto.UserGenericDTO;
 import com.licenta.facade.populator.UserPopulator;
 import com.licenta.facade.reversepopulator.UserReversePopulator;
@@ -35,29 +37,26 @@ public class UserFacade {
     public static final String USER = "USER";
 
 
-    public Integer addUser(UserGenericDTO userGenericDTO) {
+    public Integer addUser(UserDTO userGenericDTO) {
         User user = userGenericReversePopulator.userFromDTOToModel(userGenericDTO);
         return userService.create(user);
     }
 
-    public Integer addDoctor(UserGenericDTO userGenericDTO) {
-        Doctor doctor = userGenericReversePopulator.doctorFromDTOToModel(userGenericDTO);
-        return doctorService.create(doctor);
-    }
 
-    public UserGenericDTO doLogin(UserGenericDTO userGenericDTO) {
-        UserGenericDTO userForListing = new UserGenericDTO();
+    public UserDTO doLogin(UserDTO userGenericDTO) {
+        UserDTO userForListing = new UserDTO();
         if (userGenericDTO.getRole().equals(USER)) {
 
             User userFromServer = userService.loginUser(userGenericDTO.getEmail(), userGenericDTO.getPassword(),
                     userGenericDTO.getRole());
             userForListing = userPopulator.userFromModelToDTO(userFromServer);
-        } else {
-
-            Doctor doctorFromServer = doctorService.loginDoctor(userGenericDTO.getEmail(), userGenericDTO.getPassword(),
-                    userGenericDTO.getRole());
-            userForListing = userPopulator.doctorFromModelToDTO(doctorFromServer);
         }
+//        else {
+//
+//            Doctor doctorFromServer = doctorService.loginDoctor(userGenericDTO.getEmail(), userGenericDTO.getPassword(),
+//                    userGenericDTO.getRole());
+//            userForListing = userPopulator.doctorFromModelToDTO(doctorFromServer);
+//        }
 
 
         return userForListing;
@@ -74,18 +73,18 @@ public class UserFacade {
         return page;
     }
 
-    public UserGenericDTO getUserByUniqueKey(String uniqKey) {
+    public UserDTO getUserByUniqueKey(String uniqKey) {
         User user = userService.findUserByUniqueKey(uniqKey);
-        UserGenericDTO userGenericDTO = userPopulator.userFromModelToDTO(user);
+        UserDTO userGenericDTO = userPopulator.userFromModelToDTO(user);
         return userGenericDTO;
     }
 
-    public void addAllergiesForUser(UserGenericDTO user, List<String> allergyIds) {
+    public void addAllergiesForUser(UserDTO user, List<String> allergyIds) {
 //        User userModel = userGenericReversePopulator.userDtoToModelInsertion(user);
         userService.addAllergiesForUser(user.getEmail(), allergyIds);
     }
 
-    public void connectDoctorWithUser(String email, UserGenericDTO userGenericDTO) {
+    public void connectDoctorWithUser(String email, UserDTO userGenericDTO) {
         User  user = userGenericReversePopulator.userFromDTOToModel(userGenericDTO);
         userService.connectDoctorWithUser(email,user);
 

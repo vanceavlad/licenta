@@ -1,5 +1,6 @@
 package com.licenta.validator;
 
+import com.licenta.dto.UserDTO;
 import com.licenta.dto.UserGenericDTO;
 import com.licenta.model.User;
 import com.licenta.service.UserService;
@@ -24,7 +25,7 @@ public class UserValidator implements Validator {
 
     @Override
     public void validate(Object objectUser, Errors errors) {
-        UserGenericDTO user = (UserGenericDTO) objectUser;
+        UserDTO user = (UserDTO) objectUser;
 
         ValidationUtils.rejectIfEmpty(errors,"email", "email.empty", "Email cannot be empty");
 

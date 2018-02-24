@@ -1,6 +1,10 @@
 package com.licenta.facade;
 
+import com.licenta.dto.DoctorDTO;
+import com.licenta.dto.UserDTO;
 import com.licenta.dto.UserGenericDTO;
+import com.licenta.facade.populator.DoctorPopulator;
+import com.licenta.facade.reversepopulator.DoctorReversePopulator;
 import com.licenta.facade.reversepopulator.UserReversePopulator;
 import com.licenta.model.Doctor;
 import com.licenta.model.DoctorRequest;
@@ -16,16 +20,27 @@ import java.util.List;
 public class DoctorFacade {
 
 
+    public static final String DOCTOR = "DOCTOR";
+    public static final String USER = "USER";
+
+
+
     @Autowired
     private DoctorService doctorService;
 
     @Autowired
     UserReversePopulator userReversePopulator;
 
+    @Autowired
+    DoctorReversePopulator doctorReversePopulator;
 
-    public List<DoctorRequest> connectUserWithDoctor(UserGenericDTO doctorDTO, UserGenericDTO userGeneric) {
+    @Autowired
+    DoctorPopulator doctorPopulator;
+
+
+    public List<DoctorRequest> connectUserWithDoctor(DoctorDTO doctorDTO, UserDTO userGeneric) {
         User user = userReversePopulator.userFromDTOToModel(userGeneric);
-        Doctor doctor = userReversePopulator.doctorFromDTOToModel(doctorDTO);
+        Doctor doctor = doctorReversePopulator.doctorFromDTOToModel(doctorDTO);
         String email = doctor.getEmail();
         String result = doctorService.sendConnectingEmail(doctor, user);
         if(result!=null){
@@ -36,9 +51,26 @@ public class DoctorFacade {
         }
     }
 
-    public boolean verifyIfDoctorHasUser(UserGenericDTO doctor, UserGenericDTO userForListing) {
+    public boolean verifyIfDoctorHasUser(DoctorDTO doctor, UserDTO userForListing) {
         User userModel = userReversePopulator.userFromDTOToModel(userForListing);
-        Doctor doctorModel = userReversePopulator.doctorFromDTOToModel(doctor);
+        Doctor doctorModel = doctorReversePopulator.doctorFromDTOToModel(doctor);
         return doctorService.verifyIfDoctorHasUser(doctorModel,userModel);
+    }
+
+    public Integer addDoctor(DoctorDTO userGenericDTO) {
+        Doctor doctor = doctorReversePopulator.doctorFromDTOToModel(userGenericDTO);
+        return doctorService.create(doctor);
+    }
+
+    public DoctorDTO doLogin(DoctorDTO doctorDTO) {
+        DoctorDTO doctorForListing = new DoctorDTO();
+        if (doctorDTO.getRole().equals(DOCTOR)) {
+
+            Doctor doctorFromServer = doctorService.loginDoctor(doctorDTO.getEmail(), doctorDTO.getPassword(),
+                    doctorDTO.getRole());
+            doctorForListing = doctorPopulator.doctorFromModelToDTO(doctorFromServer);
+        }
+
+        return doctorForListing;
     }
 }
