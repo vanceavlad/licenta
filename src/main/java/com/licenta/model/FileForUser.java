@@ -14,6 +14,9 @@ public class FileForUser implements Serializable {
     @Column(name = "file_user_id")
     private Integer id;
 
+    @Column(name = "code")
+    private String fileCode;
+
     @Column(name = "description")
     private String description;
 
@@ -27,6 +30,9 @@ public class FileForUser implements Serializable {
     @Column(name="date")
     private Date date;
 
+    @Column(name = "doctor")
+    private String doctor;
+
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "user",referencedColumnName = "user_id")
@@ -39,6 +45,14 @@ public class FileForUser implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getFileCode() {
+        return fileCode;
+    }
+
+    public void setFileCode(String fileCode) {
+        this.fileCode = fileCode;
     }
 
     public String getDescription() {
@@ -71,6 +85,14 @@ public class FileForUser implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(String doctor) {
+        this.doctor = doctor;
     }
 
     public User getUser() {

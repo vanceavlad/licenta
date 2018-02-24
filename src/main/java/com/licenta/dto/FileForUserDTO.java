@@ -4,11 +4,21 @@ import java.util.Date;
 
 public class FileForUserDTO {
 
+    private String fileCode;
     private String description;
     private String problems;
     private String utilities;
     private Date date;
     private String userEmail;
+    private String doctorEmail;
+
+    public String getFileCode() {
+        return fileCode;
+    }
+
+    public void setFileCode(String fileCode) {
+        this.fileCode = fileCode;
+    }
 
     public String getDescription() {
         return description;
@@ -48,5 +58,13 @@ public class FileForUserDTO {
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
+    }
+
+    public String getDoctorEmail() {
+        return doctorEmail;
+    }
+
+    public void setDoctorEmail(String doctorEmail) {
+        this.doctorEmail = doctorEmail;
     }
 }

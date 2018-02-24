@@ -23,10 +23,10 @@
 
     <div class="row ">
         <div class="col-sm-4">
-            <button  class="btn btn-danger" ><a href="/user/addAllergies">Adauga alergii</a></button>
+            <button  class="btn btn-danger" ><a href="${pageContext.request.contextPath}/user/addAllergies">Adauga alergii</a></button>
         </div>
         <div class="col-sm-4">
-            <button><a href="#">Adauga boli</a></button>
+            <button><a href="${pageContext.request.contextPath}/user/files">My files</a></button>
         </div>
         <div class="col-sm-4">
             <button><a href="#">Adauga ceva</a></button>

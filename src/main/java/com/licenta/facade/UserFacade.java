@@ -2,11 +2,14 @@ package com.licenta.facade;
 
 
 import com.licenta.dto.DoctorDTO;
+import com.licenta.dto.FileForUserDTO;
 import com.licenta.dto.UserDTO;
 import com.licenta.dto.UserGenericDTO;
+import com.licenta.facade.populator.FilesForUserPopulator;
 import com.licenta.facade.populator.UserPopulator;
 import com.licenta.facade.reversepopulator.UserReversePopulator;
 import com.licenta.model.Doctor;
+import com.licenta.model.FileForUser;
 import com.licenta.model.User;
 import com.licenta.service.DoctorService;
 import com.licenta.service.UserService;
@@ -14,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class UserFacade {
@@ -31,6 +35,9 @@ public class UserFacade {
 
     @Autowired
     private UserPopulator userPopulator;
+
+    @Autowired
+    private FilesForUserPopulator filesForUserPopulator;
 
 
     public static final String DOCTOR = "DOCTOR";
@@ -88,5 +95,11 @@ public class UserFacade {
         User  user = userGenericReversePopulator.userFromDTOToModel(userGenericDTO);
         userService.connectDoctorWithUser(email,user);
 
+    }
+
+    public Set<FileForUserDTO> getFilesForUser(UserDTO userGenericDTO) {
+        User user = userGenericReversePopulator.userFromDTOToModel(userGenericDTO);
+        Set<FileForUser> filesForUser = userService.getAllFilesForUser(user);
+        return filesForUserPopulator.fileForUserModelToDTOS(filesForUser);
     }
 }

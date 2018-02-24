@@ -1,5 +1,6 @@
 package com.licenta.repository;
 
+import com.licenta.model.FileForUser;
 import com.licenta.model.User;
 import com.licenta.repository.interfaces.AbstractDao;
 import org.hibernate.Query;
@@ -81,4 +82,10 @@ public class UserDaoImpl implements AbstractDao<User, Integer> {
         return foundedUser;
 
     }
+
+    public void saveOrUpdate(User entity) {
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(entity);
+    }
+
 }

@@ -1,10 +1,7 @@
 package com.licenta.service;
 
 import com.licenta.Utils.RandomUUIDGenerator;
-import com.licenta.model.Allergy;
-import com.licenta.model.Doctor;
-import com.licenta.model.DoctorRequest;
-import com.licenta.model.User;
+import com.licenta.model.*;
 import com.licenta.repository.AllergyDaoImpl;
 import com.licenta.repository.DoctorDaoImpl;
 import com.licenta.repository.DoctorRequestDaoImpl;
@@ -14,9 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @Service
@@ -131,4 +126,31 @@ public class UserService {
 
         doctorDao.update(doctor);
     }
+
+    public User getUserByEmail(String userEmail) {
+        return userDao.getUserByEmail(userEmail);
+    }
+
+    public Set<FileForUser> getAllFilesForUser(User user) {
+        user = userDao.getUserByEmail(user.getEmail());
+
+        Set<FileForUser> filesForUser = new HashSet<>();
+
+
+        filesForUser.addAll(user.getFilesForUser());
+
+
+
+        return filesForUser;
+
+    }
 }
+
+class MyDateComparator implements Comparator<FileForUser>{
+
+    @Override
+    public int compare(FileForUser e1, FileForUser e2) {
+        return e2.getDate().compareTo(e1.getDate());
+    }
+}
+
