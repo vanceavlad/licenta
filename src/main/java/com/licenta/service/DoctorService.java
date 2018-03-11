@@ -3,19 +3,18 @@ package com.licenta.service;
 import com.licenta.Utils.SendEmail;
 import com.licenta.model.Doctor;
 import com.licenta.model.DoctorRequest;
+import com.licenta.model.FileForUser;
 import com.licenta.model.User;
 import com.licenta.repository.DoctorDaoImpl;
 import com.licenta.repository.DoctorRequestDaoImpl;
+import com.licenta.repository.FilesForUserDaoImpl;
 import com.licenta.repository.UserDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Transactional
@@ -33,6 +32,9 @@ public class DoctorService {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private FilesForUserDaoImpl filesForUserDao;
 
 
     public Integer create(Doctor doctor) {
@@ -110,4 +112,25 @@ public class DoctorService {
         return false;
     }
 
+    public Set<FileForUser> getAllFilesForUser(String key) {
+//        email+=".com";
+       User user = userDao.findByUniqueKey(key);
+
+        Set<FileForUser> filesForUser = new HashSet<>();
+
+
+        filesForUser.addAll(user.getFilesForUser());
+        return filesForUser;
+
+    }
+
+    public Set<FileForUser> findUserAssociatedWithFileCode(String code) {
+
+        FileForUser fileForUser = filesForUserDao.findByCode(code);
+        User user = fileForUser.getUser();
+        Set<FileForUser> filesForUser = new HashSet<>();
+
+        filesForUser.addAll(user.getFilesForUser());
+        return filesForUser;
+    }
 }

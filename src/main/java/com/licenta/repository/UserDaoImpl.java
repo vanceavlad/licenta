@@ -88,4 +88,5 @@ public class UserDaoImpl implements AbstractDao<User, Integer> {
         session.saveOrUpdate(entity);
     }
 
+
 }

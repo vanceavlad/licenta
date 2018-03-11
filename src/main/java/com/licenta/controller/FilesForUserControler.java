@@ -81,6 +81,23 @@ public class FilesForUserControler {
 
 
 
+    @RequestMapping(value = "/viewFileFromDoctorView/{code}", method = RequestMethod.GET)
+    public String viewDetailsForFileFromDoctor(@PathVariable String code, Model model) {
+        String goToPage = "";
+        FileForUserDTO fileForUserDTO = fileForUserFacade.findFileByCode(code);
+//        List<Category> categoriesExisted = productEditDTO.getCategories();
+
+        if (!fileForUserDTO.getFileCode().equals("")) {
+
+            goToPage = "viewFileFromDoctor";
+            model.addAttribute("file", fileForUserDTO);
+        } else {
+            goToPage = "codeNotExist";
+        }
+
+        return goToPage;
+    }
+
 
 
 

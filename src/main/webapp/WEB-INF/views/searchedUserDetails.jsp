@@ -137,6 +137,11 @@
                 </div>
             </form:form>
 
+            <div>
+                <p><a href="/doctor/viewUserByDoctor/${resultUser.uniqKey}">See all files</a></p>
+
+            </div>
+
         </c:otherwise>
     </c:choose>
     <!-- Simple div to let a little bit of space from the end of container -->

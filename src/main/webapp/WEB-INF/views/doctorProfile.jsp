@@ -79,27 +79,38 @@
             <div class="row">
 
                 <div class="col-sm-6 mt-4">
-                    <h3>Your requests: </h3><br>
+                    <h3>Your requests: </h3>
 
-                    <c:forEach var="doctorRequest" items="${doctorRequests}">
-                        <%--<input type="text" name="allergyIds"/>--%>
-                        <c:out value="${doctorRequest.user}"/>
-                        <br>
-                    </c:forEach>
+                    <table border="2">
+                        <c:forEach var="doctorRequest" items="${doctorRequests}">
+                            <%--<input type="text" name="allergyIds"/>--%>
+                            <tr>
+                                <td><c:out value="${doctorRequest.user}"/></td>
+                            </tr>
+                        </c:forEach>
+                    </table>
                     <br/>
                 </div>
 
                 <div class="col-sm-6 mt-4">
-                    <h3>Your requests users: </h3><br>
-                    <c:forEach var="user" items="${currentDoctor.users}">
-                        <%--<input type="text" name="allergyIds"/>--%>
-                        <p>Name:<c:out value="${user.name}"/> </p>
-                        <p>Last name: <c:out value="${user.lastName}"/></p>
-                        <p>email: <c:out value="${user.email}"/></p>
-                        <br>
-                    </c:forEach>
+                    <h3>Your patients: </h3><br>
 
+                    <table border="4px">
 
+                        <c:forEach var="user" items="${currentDoctor.users}">
+                            <tr class="${user.email}">
+                                    <%--<input type="text" name="allergyIds"/>--%>
+                                <td>Name:<c:out value="${user.name}"/></td>
+                                <td>Last name: <c:out value="${user.lastName}"/></td>
+                                <td>Email: <c:out value="${user.email}"/></td>
+                                <td style="text-align: center"><a href=<c:url
+                                        value="/doctor/viewUserByDoctor/${user.uniqKeyGenerated}"/>>
+                                    <button class="viewButton" name="${user.name}">View</button>
+                                </a></td>
+
+                            </tr>
+                        </c:forEach>
+                    </table>
                 </div>
             </div>
 

@@ -2,6 +2,7 @@ package com.licenta.controller;
 
 
 import com.licenta.dto.DoctorDTO;
+import com.licenta.dto.FileForUserDTO;
 import com.licenta.dto.UserDTO;
 import com.licenta.dto.UserGenericDTO;
 import com.licenta.facade.DoctorFacade;
@@ -11,11 +12,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/doctor")
@@ -81,4 +85,22 @@ public class DoctorController {
         model.addAttribute("currentDoctor", doctorDTO);
         return "redirect:/doctor/myProfile";
     }
+
+
+    @RequestMapping(value="/viewUserByDoctor/{key}", method = RequestMethod.GET)
+    public ModelAndView viewUserByDoctor(@PathVariable String key, HttpServletRequest request)
+    {
+        ModelAndView modelAndView = new ModelAndView("viewFilesFromDoctorView");
+        Set<FileForUserDTO> filesForUser = doctorFacade.getFilesForUser(key);
+        modelAndView.addObject("files", filesForUser);
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/viewFilesUserByDoctor/{code}", method = RequestMethod.GET)
+    public ModelAndView viewUserByDoctor(@PathVariable String code)
+    {
+        ModelAndView modelAndView = new ModelAndView("viewFilesFromDoctorView");
+        Set<FileForUserDTO> filesForUser = doctorFacade.findUserAssociatedWithFileCode(code);
+        modelAndView.addObject("files", filesForUser);
+        return modelAndView;    }
 }
