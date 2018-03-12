@@ -14,6 +14,7 @@
 <c:choose>
     <c:when test="${currentDoctor.role == 'DOCTOR'}">
         <c:url var="searchUserURL" value="/doctor/searchUser"/>
+        <c:url var="updateProfile" value="/doctor/updateDoctorProfile"/>
 
         <div class="container">
 
@@ -29,8 +30,9 @@
                     <button><a href="#">Adauga programare</a></button>
                 </div>
 
+
                 <div class="col-sm-3">
-                    <button><a href="#">Edit Profile</a></button>
+                    <button><a href="/doctor/updateDoctorProfile/${currentDoctor.uniqKey}">Edit Profile</a></button>
                 </div>
 
             </div>

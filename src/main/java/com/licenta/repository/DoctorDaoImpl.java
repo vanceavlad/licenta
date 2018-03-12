@@ -75,4 +75,17 @@ public class DoctorDaoImpl implements AbstractDao<Doctor, Integer> {
     }
 
 
+    public Doctor getDoctorByUniqueKey(String uniqueKey) {
+        Doctor foundedDoctor;
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "from Doctor where uniqKeyGenerated =:uniqKeyGenerated";
+        Query query = session.createQuery(hql);
+        query.setParameter("uniqKeyGenerated", uniqueKey);
+        try {
+            foundedDoctor = (Doctor) query.getSingleResult();
+        } catch (NoResultException nre) {
+            foundedDoctor = null;
+        }
+        return foundedDoctor;
+    }
 }

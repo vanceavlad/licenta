@@ -1,5 +1,6 @@
 package com.licenta.service;
 
+import com.licenta.Utils.RandomUUIDGenerator;
 import com.licenta.Utils.SendEmail;
 import com.licenta.model.Doctor;
 import com.licenta.model.DoctorRequest;
@@ -36,8 +37,13 @@ public class DoctorService {
     @Autowired
     private FilesForUserDaoImpl filesForUserDao;
 
+    @Autowired
+    private RandomUUIDGenerator randomUUIDGenerator;
+
 
     public Integer create(Doctor doctor) {
+        String uniqKey = randomUUIDGenerator.getRandomUUID().toString();
+        doctor.setUniqKeyGenerated(uniqKey);
         doctor.setPassword(bCryptPasswordEncoder.encode(doctor.getPassword()));
         return doctorDao.create(doctor);
     }
@@ -132,5 +138,9 @@ public class DoctorService {
 
         filesForUser.addAll(user.getFilesForUser());
         return filesForUser;
+    }
+
+    public Doctor getByKey(String uniqueKey) {
+        return doctorDao.getDoctorByUniqueKey(uniqueKey);
     }
 }

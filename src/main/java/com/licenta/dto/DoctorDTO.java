@@ -17,8 +17,10 @@ public class DoctorDTO {
     private String password;
     private String email;
     private String role;
+    private String uniqKey;
     private Set<User> users = new HashSet<>();
     private List<DoctorRequest> doctorRequests = new ArrayList<>();
+    private AddressDTO addressDTO;
 
 
     public String getName() {
@@ -61,6 +63,13 @@ public class DoctorDTO {
         this.role = role;
     }
 
+    public String getUniqKey() {
+        return uniqKey;
+    }
+
+    public void setUniqKey(String uniqKey) {
+        this.uniqKey = uniqKey;
+    }
 
     public Set<User> getUsers() {
         return users;
@@ -76,6 +85,14 @@ public class DoctorDTO {
 
     public void setDoctorRequests(List<DoctorRequest> doctorRequests) {
         this.doctorRequests = doctorRequests;
+    }
+
+    public AddressDTO getAddressDTO() {
+        return addressDTO;
+    }
+
+    public void setAddressDTO(AddressDTO addressDTO) {
+        this.addressDTO = addressDTO;
     }
 }
 

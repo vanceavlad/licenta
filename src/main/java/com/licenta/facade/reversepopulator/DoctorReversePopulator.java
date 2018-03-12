@@ -22,6 +22,7 @@ public class DoctorReversePopulator {
             doctor.setUsers(model.getUsers());
             doctor.setDoctorRequests(model.getDoctorRequests());
             doctor.setType(DOCTOR);
+            doctor.setUniqKeyGenerated(model.getUniqKey());
         }
         return doctor;
     }

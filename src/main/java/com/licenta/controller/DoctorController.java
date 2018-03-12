@@ -1,12 +1,10 @@
 package com.licenta.controller;
 
 
-import com.licenta.dto.DoctorDTO;
-import com.licenta.dto.FileForUserDTO;
-import com.licenta.dto.UserDTO;
-import com.licenta.dto.UserGenericDTO;
+import com.licenta.dto.*;
 import com.licenta.facade.DoctorFacade;
 import com.licenta.facade.UserFacade;
+import com.licenta.facade.ZoneFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -30,6 +29,9 @@ public class DoctorController {
 
     @Autowired
     DoctorFacade doctorFacade;
+
+    @Autowired
+    ZoneFacade zoneFacade;
 
 
     @RequestMapping(value = "/myProfile", method = RequestMethod.GET)
@@ -102,5 +104,28 @@ public class DoctorController {
         ModelAndView modelAndView = new ModelAndView("viewFilesFromDoctorView");
         Set<FileForUserDTO> filesForUser = doctorFacade.findUserAssociatedWithFileCode(code);
         modelAndView.addObject("files", filesForUser);
-        return modelAndView;    }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/updateDoctorProfile/{uniqueKey}", method = RequestMethod.GET)
+    public String updateDoctorProfile(@PathVariable String uniqueKey, Model model)
+    {
+        DoctorDTO doctorDTO = doctorFacade.findByKey(uniqueKey);
+        List<String> zones = zoneFacade.getAllZone();
+        model.addAttribute("doctor", doctorDTO);
+
+        model.addAttribute("zones", zones);
+
+        return "updateDoctorProfile";
+
+    }
+
+    @RequestMapping(value = "/updateDoctorProfile", method = RequestMethod.POST)
+    public String updateProfile(@ModelAttribute("doctor") DoctorDTO doctorDTO)
+    {
+        System.out.println(doctorDTO);
+        return null;
+
+    }
+
 }

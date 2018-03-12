@@ -55,7 +55,7 @@ public class RegisterController {
     @RequestMapping(value = "/registerFormDoctor", method = RequestMethod.GET)
     public String getRegisterViewForDoctor(Model model) {
 
-        model.addAttribute("userGenericDTO", new DoctorDTO());
+        model.addAttribute("doctorGenericDTO", new DoctorDTO());
         model.addAttribute("role", new String());
         return "registerDoctor";
     }
@@ -69,7 +69,7 @@ public class RegisterController {
 //        if(userGenericDTO.getRole().equals(DOCTOR)){
 //            userFacade.addDoctor(userGenericDTO);
 //        }
-        if (doctorGenericDTO.getRole().equals(USER)) {
+        if (doctorGenericDTO.getRole().equals(DOCTOR)) {
             doctorFacade.addDoctor(doctorGenericDTO);
         }
         return "loginDoctor";

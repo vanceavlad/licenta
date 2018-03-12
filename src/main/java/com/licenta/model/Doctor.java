@@ -35,6 +35,12 @@ public class Doctor implements Serializable {
     @Column(name = "type")
     private String type;
 
+    @Column(name = "uniqKeyGenerated")
+    private String uniqKeyGenerated;
+
+    @Column(name = "addressId")
+    private Address address;
+
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.PERSIST}, mappedBy = "doctor")
     private List<DoctorRequest> doctorRequests = new ArrayList<>();
 
@@ -114,6 +120,22 @@ public class Doctor implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getUniqKeyGenerated() {
+        return uniqKeyGenerated;
+    }
+
+    public void setUniqKeyGenerated(String uniqKeyGenerated) {
+        this.uniqKeyGenerated = uniqKeyGenerated;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public List<DoctorRequest> getDoctorRequests() {

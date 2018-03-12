@@ -88,4 +88,10 @@ public class DoctorFacade {
         Set<FileForUser> filesForUser = doctorService.findUserAssociatedWithFileCode(code);
         return filesForUserPopulator.fileForUserModelToDTOS(filesForUser);
     }
+
+    public DoctorDTO findByKey(String uniqueKey) {
+        Doctor doctor = doctorService.getByKey(uniqueKey);
+        DoctorDTO doctorDTO = doctorPopulator.doctorFromModelToDTO(doctor);
+        return doctorDTO;
+    }
 }
