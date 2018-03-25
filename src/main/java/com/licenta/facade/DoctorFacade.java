@@ -94,4 +94,11 @@ public class DoctorFacade {
         DoctorDTO doctorDTO = doctorPopulator.doctorFromModelToDTO(doctor);
         return doctorDTO;
     }
+
+    public void updateDoctorProfile(DoctorDTO doctorDTO) {
+        Doctor doctor = doctorService.getDoctorByEmail(doctorDTO.getEmail());
+        doctorDTO.setRole(doctor.getType());
+        doctor = doctorReversePopulator.doctorFromDTOToModel(doctorDTO);
+        doctorService.updateDoctorProfile(doctor);
+    }
 }

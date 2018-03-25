@@ -38,7 +38,7 @@ public class Doctor implements Serializable {
     @Column(name = "uniqKeyGenerated")
     private String uniqKeyGenerated;
 
-    @Column(name = "addressId")
+    @OneToOne(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE,CascadeType.PERSIST}, mappedBy = "doctor")
     private Address address;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.PERSIST}, mappedBy = "doctor")

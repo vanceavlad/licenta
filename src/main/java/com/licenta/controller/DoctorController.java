@@ -113,6 +113,7 @@ public class DoctorController {
         DoctorDTO doctorDTO = doctorFacade.findByKey(uniqueKey);
         List<String> zones = zoneFacade.getAllZone();
         model.addAttribute("doctor", doctorDTO);
+        model.addAttribute("addressDTO", doctorDTO.getAddressDTO());
 
         model.addAttribute("zones", zones);
 
@@ -123,8 +124,12 @@ public class DoctorController {
     @RequestMapping(value = "/updateDoctorProfile", method = RequestMethod.POST)
     public String updateProfile(@ModelAttribute("doctor") DoctorDTO doctorDTO)
     {
-        System.out.println(doctorDTO);
-        return null;
+        //todo de facut validari pt nr de telefon; cod postal si eventual de pus un select box unde se poate selecta doar
+        //todo orasul cluj napoca; pt nr strazii etc
+
+        doctorFacade.updateDoctorProfile(doctorDTO);
+
+        return "redirect:/doctor/myProfile";
 
     }
 

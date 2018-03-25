@@ -10,6 +10,7 @@ public class Address implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "address_id")
     private Integer id;
 
     @Column(name = "city")
@@ -29,6 +30,11 @@ public class Address implements Serializable {
 
     @Column(name = "zone")
     private String zone;
+
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "doctor",referencedColumnName = "doctor_id")
+    private Doctor doctor;
 
     public Integer getId() {
         return id;
@@ -85,4 +91,14 @@ public class Address implements Serializable {
     public void setZone(String zone) {
         this.zone = zone;
     }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
 }
+
+

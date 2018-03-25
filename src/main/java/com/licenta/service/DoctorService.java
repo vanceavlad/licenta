@@ -6,10 +6,7 @@ import com.licenta.model.Doctor;
 import com.licenta.model.DoctorRequest;
 import com.licenta.model.FileForUser;
 import com.licenta.model.User;
-import com.licenta.repository.DoctorDaoImpl;
-import com.licenta.repository.DoctorRequestDaoImpl;
-import com.licenta.repository.FilesForUserDaoImpl;
-import com.licenta.repository.UserDaoImpl;
+import com.licenta.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -39,6 +36,9 @@ public class DoctorService {
 
     @Autowired
     private RandomUUIDGenerator randomUUIDGenerator;
+
+    @Autowired
+    private AddressDaoImpl addressDao;
 
 
     public Integer create(Doctor doctor) {
@@ -142,5 +142,21 @@ public class DoctorService {
 
     public Doctor getByKey(String uniqueKey) {
         return doctorDao.getDoctorByUniqueKey(uniqueKey);
+    }
+
+    public void updateDoctorProfile(Doctor doctor) {
+        Doctor doctorToUpdate = doctorDao.getDoctorByEmail(doctor.getEmail());
+
+        doctor.getAddress().setDoctor(doctorToUpdate);
+
+        addressDao.saveOrUpdate(doctor.getAddress());
+
+        doctorToUpdate.setAddress(doctor.getAddress());
+
+        doctorDao.saveOrUpdate(doctorToUpdate);
+    }
+
+    public Doctor getDoctorByEmail(String email){
+        return doctorDao.getDoctorByEmail(email);
     }
 }
