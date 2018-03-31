@@ -133,4 +133,14 @@ public class DoctorController {
 
     }
 
+    @RequestMapping(value = "/schedules/{uniqueKey}", method = RequestMethod.GET)
+    public String schedules(@PathVariable String uniqueKey, Model model)
+    {
+        DoctorDTO doctorDTO = doctorFacade.findByKey(uniqueKey);
+        model.addAttribute("doctor", doctorDTO);
+
+        return "doctorSchedules";
+
+    }
+
 }

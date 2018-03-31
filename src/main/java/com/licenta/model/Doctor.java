@@ -53,6 +53,10 @@ public class Doctor implements Serializable {
     private Set<User> users = new HashSet<>();
 
 
+    @OneToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST},mappedBy = "doctor")
+    private List<ScheduleForDoctor> schedulesForDoctor;
+
+
     public Doctor() {
     }
 
@@ -152,6 +156,14 @@ public class Doctor implements Serializable {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    public List<ScheduleForDoctor> getSchedulesForDoctor() {
+        return schedulesForDoctor;
+    }
+
+    public void setSchedulesForDoctor(List<ScheduleForDoctor> schedulesForDoctor) {
+        this.schedulesForDoctor = schedulesForDoctor;
     }
 }
 

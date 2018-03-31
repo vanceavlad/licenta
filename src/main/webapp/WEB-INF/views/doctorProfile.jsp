@@ -20,18 +20,14 @@
 
 
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <button class="btn btn-danger"><a href="#">My patient</a></button>
                 </div>
-                <div class="col-sm-3">
-                    <button><a href="#">Vezi programari</a></button>
-                </div>
-                <div class="col-sm-3">
-                    <button><a href="#">Adauga programare</a></button>
+                <div class="col-sm-4">
+                    <button><a href="/doctor/schedules/${currentDoctor.uniqKey}">Programari</a></button>
                 </div>
 
-
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <button><a href="/doctor/updateDoctorProfile/${currentDoctor.uniqKey}">Edit Profile</a></button>
                 </div>
 
